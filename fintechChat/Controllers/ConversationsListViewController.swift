@@ -140,15 +140,6 @@ extension ConversationsListViewController: UITableViewDataSource {
     //подготовка данных для пересылки во вьюконтроллер
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? ConversationViewController {
-            
-//            destination.messageLists = messageLists
-//
-//            destination.fromUser = myPeerId.displayName
-//            destination.fromUserPeer = myPeerId
-//
-//            destination.toUser = fromUserPeer.displayName
-//            destination.toUserPeer = fromUserPeer
-//
             destination.session = session
             destination.conversationData = conversationData
         }

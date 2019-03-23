@@ -13,30 +13,18 @@ class ConversationViewController: UIViewController {
 
     var conversationData = [ConversationList]()
     var messageLists = [MessageLists]()
-    
-    var fromUser: String?  //от кого пришло сообщение
-    var fromUserPeer: MCPeerID!
-
-    var toUserPeer: MCPeerID!
-    var toUser: String?    //кому пришло сообщение
-
     var session: MCSession!
     
     @IBOutlet weak var messageTxtField: UITextField!
     @IBOutlet weak var sendMessageBtn: UIButton!
-    
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("messageLists", session)
-        
         self.navigationItem.title = conversationData[0].peerID.displayName
-        
         session.delegate = self
-
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.tableView.backgroundColor = ThemeManager.currentTheme().backgroundColor
     }
@@ -46,19 +34,18 @@ class ConversationViewController: UIViewController {
             
             //добавим сообщение в массив
             addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
-            
-            //print(fromUser!, toUser!,toUserPeer.displayName)
+            //отошлем пиру
             sendText(text: messageTxtField.text!, peerID: conversationData[0].peerID)
-            print(messageLists)
             tableView.reloadData()
         }
     }
 }
 
+
 extension ConversationViewController: UITableViewDelegate {
 }
 
-extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
+extension ConversationViewController: UITableViewDataSource , MCSessionDelegate  {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         var str = ""
         let jsonDecode = JSONDecoder()
@@ -78,19 +65,19 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         print(#function)
     }
-    
+
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
         print(#function)
     }
-    
+
     func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
         print(#function)
     }
-    
+
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         print(#function)
     }
-    
+
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
