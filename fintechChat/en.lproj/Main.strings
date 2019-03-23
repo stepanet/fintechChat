@@ -1,0 +1,24 @@
+
+/* Class = "UILabel"; text = "dateLabel"; ObjectID = "Csh-QV-vNN"; */
+"Csh-QV-vNN.text" = "dateLabel";
+
+/* Class = "UINavigationItem"; title = "Tinkoff Chat"; ObjectID = "Ddj-FU-Sig"; */
+"Ddj-FU-Sig.title" = "Tinkoff Chat";
+
+/* Class = "UILabel"; text = "Капитан Джек Воробей"; ObjectID = "Ys8-L6-OxC"; */
+"Ys8-L6-OxC.text" = "Капитан Джек Воробей";
+
+/* Class = "UIButton"; normalTitle = "Редактировать"; ObjectID = "es2-fs-98o"; */
+"es2-fs-98o.normalTitle" = "Редактировать";
+
+/* Class = "UITextView"; text = "Исчерпавший свою удачу капитан Джек Воробей обнаруживает, что за ним охотится его старый неприятель, ужасный капитан Салазар и его призрачные пираты."; ObjectID = "gqE-7A-GHO"; */
+"gqE-7A-GHO.text" = "Исчерпавший свою удачу капитан Джек Воробей обнаруживает, что за ним охотится его старый неприятель, ужасный капитан Салазар и его призрачные пираты.";
+
+/* Class = "UILabel"; text = "messageLabel"; ObjectID = "hQC-Et-d6w"; */
+"hQC-Et-d6w.text" = "messageLabel";
+
+/* Class = "UILabel"; text = "nameLabel"; ObjectID = "t2v-Mv-s7y"; */
+"t2v-Mv-s7y.text" = "nameLabel";
+
+/* Class = "UIBarButtonItem"; title = "Profile"; ObjectID = "zxr-Ga-hEJ"; */
+"zxr-Ga-hEJ.title" = "Profile";

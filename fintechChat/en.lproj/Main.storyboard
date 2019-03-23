@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fcs-AP-aA8">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tinkoff Chat-->
+        <scene sceneID="yY0-Au-1Jv">
+            <objects>
+                <viewController id="hFl-hU-M7d" customClass="ConversationsListViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dMh-BZ-4PX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g3G-sR-I7e">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" name="darkColor"/>
+                                <inset key="separatorInset" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="5m7-JV-Dxc" customClass="ConversationTableViewCell" customModule="fintechChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5m7-JV-Dxc" id="rvT-qw-2PC">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3k7-zK-CUW">
+                                                    <rect key="frame" x="15" y="12" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="hFl-hU-M7d" id="lVI-rk-5ZK"/>
+                                    <outlet property="delegate" destination="hFl-hU-M7d" id="AGt-gR-ntM"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="g3G-sR-I7e" firstAttribute="trailing" secondItem="54m-6w-tiv" secondAttribute="trailing" id="Fdv-0L-YKL"/>
+                            <constraint firstItem="g3G-sR-I7e" firstAttribute="top" secondItem="54m-6w-tiv" secondAttribute="top" id="XKa-uH-N22"/>
+                            <constraint firstItem="g3G-sR-I7e" firstAttribute="leading" secondItem="54m-6w-tiv" secondAttribute="leading" id="r7F-qg-ZlK"/>
+                            <constraint firstItem="g3G-sR-I7e" firstAttribute="bottom" secondItem="54m-6w-tiv" secondAttribute="bottom" id="ufU-OW-XII"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="54m-6w-tiv"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tinkoff Chat" id="Ddj-FU-Sig">
+                        <barButtonItem key="rightBarButtonItem" title="Profile" image="profile" style="done" id="zxr-Ga-hEJ">
+                            <color key="tintColor" name="darkColor"/>
+                            <connections>
+                                <segue destination="l1w-cG-oUk" kind="presentation" id="QpL-0T-JAV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="GHQ-eW-2Tz" kind="show" identifier="showDetails" id="MIG-Yu-mZc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1wl-zx-eNI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952.5" y="802.81690140845069"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="IyA-Ef-Qq4">
+            <objects>
+                <viewController id="oCe-40-bVO" customClass="ProfileViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="GVZ-ue-wY7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="EYl-ZF-PTp">
+                                <rect key="frame" x="16" y="72" width="288" height="288"/>
+                                <color key="backgroundColor" name="yellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="EYl-ZF-PTp" secondAttribute="height" multiplier="1:1" id="PR0-dY-gE0"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Капитан Джек Воробей" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ys8-L6-OxC">
+                                <rect key="frame" x="16" y="368" width="288" height="67"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <color key="textColor" name="darkColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="246" verticalCompressionResistancePriority="753" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gqE-7A-GHO">
+                                <rect key="frame" x="16" y="443" width="288" height="73"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Исчерпавший свою удачу капитан Джек Воробей обнаруживает, что за ним охотится его старый неприятель, ужасный капитан Салазар и его призрачные пираты.</string>
+                                <color key="textColor" name="darkColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="es2-fs-98o">
+                                <rect key="frame" x="16" y="521" width="288" height="39"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="tintColor" name="darkColor"/>
+                                <state key="normal" title="Редактировать"/>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="je9-TB-S7s">
+                                <rect key="frame" x="224" y="280" width="80" height="80"/>
+                                <color key="backgroundColor" name="blueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="0DM-yO-A9W"/>
+                                    <constraint firstAttribute="width" constant="80" id="T1I-Dl-Kf8"/>
+                                </constraints>
+                                <color key="tintColor" name="yellowColor"/>
+                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" image="slr-camera-2-xxl"/>
+                                <connections>
+                                    <action selector="tekePIctureBtnAction:" destination="oCe-40-bVO" eventType="touchUpInside" id="pUa-yx-nPB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ys8-L6-OxC" firstAttribute="leading" secondItem="EYl-ZF-PTp" secondAttribute="leading" id="4sm-sj-vNL"/>
+                            <constraint firstItem="gqE-7A-GHO" firstAttribute="top" secondItem="Ys8-L6-OxC" secondAttribute="bottom" constant="8" symbolic="YES" id="530-qR-y3s"/>
+                            <constraint firstItem="je9-TB-S7s" firstAttribute="trailing" secondItem="Ys8-L6-OxC" secondAttribute="trailing" id="86j-eV-ytG"/>
+                            <constraint firstItem="Ys8-L6-OxC" firstAttribute="top" secondItem="je9-TB-S7s" secondAttribute="bottom" constant="8" symbolic="YES" id="DGm-xb-rLA"/>
+                            <constraint firstItem="5FQ-Pr-wUh" firstAttribute="trailing" secondItem="EYl-ZF-PTp" secondAttribute="trailing" constant="16" id="E2t-Cx-LpX"/>
+                            <constraint firstItem="es2-fs-98o" firstAttribute="top" secondItem="gqE-7A-GHO" secondAttribute="bottom" constant="5" id="Hnc-nu-PMU"/>
+                            <constraint firstItem="EYl-ZF-PTp" firstAttribute="top" secondItem="5FQ-Pr-wUh" secondAttribute="top" constant="8" id="KkZ-YY-laE"/>
+                            <constraint firstItem="EYl-ZF-PTp" firstAttribute="leading" secondItem="5FQ-Pr-wUh" secondAttribute="leading" constant="16" id="QZT-SI-HIl"/>
+                            <constraint firstItem="gqE-7A-GHO" firstAttribute="leading" secondItem="es2-fs-98o" secondAttribute="leading" id="T8c-iQ-abT"/>
+                            <constraint firstItem="Ys8-L6-OxC" firstAttribute="leading" secondItem="gqE-7A-GHO" secondAttribute="leading" id="bez-iB-H4H"/>
+                            <constraint firstItem="5FQ-Pr-wUh" firstAttribute="bottom" secondItem="es2-fs-98o" secondAttribute="bottom" constant="8" id="dpg-99-Lzp"/>
+                            <constraint firstItem="gqE-7A-GHO" firstAttribute="trailing" secondItem="es2-fs-98o" secondAttribute="trailing" id="k6m-Am-Ywj"/>
+                            <constraint firstItem="Ys8-L6-OxC" firstAttribute="top" secondItem="EYl-ZF-PTp" secondAttribute="bottom" constant="8" symbolic="YES" id="ksQ-4U-sCG"/>
+                            <constraint firstItem="Ys8-L6-OxC" firstAttribute="trailing" secondItem="gqE-7A-GHO" secondAttribute="trailing" id="rWJ-jG-AKP"/>
+                            <constraint firstItem="je9-TB-S7s" firstAttribute="trailing" secondItem="EYl-ZF-PTp" secondAttribute="trailing" id="vEt-T2-YlY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="5FQ-Pr-wUh"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="AZT-TV-iYV">
+                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="o7j-d5-rVv">
+                            <connections>
+                                <action selector="closeProfileView:" destination="oCe-40-bVO" id="vPU-Qh-9my"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="aboutProfileTextView" destination="gqE-7A-GHO" id="jEO-hk-mby"/>
+                        <outlet property="editProfileBtn" destination="es2-fs-98o" id="0hv-a0-D8L"/>
+                        <outlet property="profileImageView" destination="EYl-ZF-PTp" id="cZH-We-oMP"/>
+                        <outlet property="profileNameLbl" destination="Ys8-L6-OxC" id="sow-KS-xSW"/>
+                        <outlet property="takePicturesForProfile" destination="je9-TB-S7s" id="TI0-LX-gvo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GUk-SY-bSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1860" y="1571"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5T7-qV-2yb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fcs-AP-aA8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gdC-y3-ni2">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hFl-hU-M7d" kind="relationship" relationship="rootViewController" id="ayE-ys-I0j"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bMY-UQ-2Gy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-43.125" y="803.87323943661977"/>
+        </scene>
+        <!--Имя чатланина-->
+        <scene sceneID="ows-ci-jgW">
+            <objects>
+                <viewController id="GHQ-eW-2Tz" customClass="ConversationViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gMX-Lk-zLl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qhg-xb-COd">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCell" rowHeight="100" id="VbL-KT-Jmu" customClass="MessageTableViewCell" customModule="fintechChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VbL-KT-Jmu" id="PqQ-SG-hEb">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" contentInsetAdjustmentBehavior="always" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="gNQ-Gf-Y6B">
+                                                    <rect key="frame" x="15" y="21" width="240" height="58"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
+                                                    <color key="backgroundColor" name="littelYellow"/>
+                                                    <inset key="scrollIndicatorInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageText" destination="gNQ-Gf-Y6B" id="dJl-Hu-DZS"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MyMessageCell" rowHeight="100" id="CuK-an-oad" customClass="MyMessageTableViewCell" customModule="fintechChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="128" width="320" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CuK-an-oad" id="Snx-gu-Lcc">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="HcV-4u-smo">
+                                                    <rect key="frame" x="65" y="21" width="240" height="58"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <inset key="scrollIndicatorInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="messageText" destination="HcV-4u-smo" id="w7M-j3-EKL"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="GHQ-eW-2Tz" id="RU8-Rr-p9R"/>
+                                    <outlet property="delegate" destination="GHQ-eW-2Tz" id="jYL-Ov-Stv"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qhg-xb-COd" firstAttribute="trailing" secondItem="8mQ-cf-BFV" secondAttribute="trailing" id="8p0-5h-N0w"/>
+                            <constraint firstItem="Qhg-xb-COd" firstAttribute="top" secondItem="8mQ-cf-BFV" secondAttribute="top" id="Rez-fN-JfY"/>
+                            <constraint firstItem="Qhg-xb-COd" firstAttribute="leading" secondItem="8mQ-cf-BFV" secondAttribute="leading" id="Srb-lS-zbH"/>
+                            <constraint firstItem="Qhg-xb-COd" firstAttribute="bottom" secondItem="8mQ-cf-BFV" secondAttribute="bottom" id="v0z-g9-ydD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="8mQ-cf-BFV"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Имя чатланина" id="izo-3D-IXB">
+                        <barButtonItem key="backBarButtonItem" title="Мои чаты" id="OW4-CZ-RYE"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lPU-I9-Oux" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1860" y="803.87323943661977"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JeZ-Sg-Xcp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="l1w-cG-oUk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xQj-hK-Yvo">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="oCe-40-bVO" kind="relationship" relationship="rootViewController" id="fhQ-Wo-nw4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jdY-hP-d2r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="954" y="1571"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="placeholder-user" width="600" height="600"/>
+        <image name="profile" width="17.280000686645508" height="17.280000686645508"/>
+        <image name="slr-camera-2-xxl" width="96" height="96"/>
+        <namedColor name="blueColor">
+            <color red="0.24705882352941178" green="0.47058823529411764" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="darkColor">
+            <color red="0.096000000834465027" green="0.14800000190734863" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="littelYellow">
+            <color red="1" green="1" blue="0.73299998044967651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="yellowColor">
+            <color red="0.97200000286102295" green="0.87000000476837158" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GX5-k9-wLJ">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Настройки-->
+        <scene sceneID="YXP-YK-OCi">
+            <objects>
+                <tableViewController id="ghS-4e-kz2" customClass="SettingsTableViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hz5-Xg-iPx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <inset key="separatorInset" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <searchBar key="tableHeaderView" clipsSubviews="YES" contentMode="redraw" searchBarStyle="minimal" placeholder="поиск" id="a50-8j-THq">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <color key="barTintColor" name="darkColor"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <sections>
+                            <tableViewSection id="zZO-xk-rba">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" textLabel="5Kp-WK-ntb" imageView="kkD-5v-w9C" rowHeight="55" style="IBUITableViewCellStyleDefault" id="OIs-Es-buX">
+                                        <rect key="frame" x="0.0" y="44" width="320" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OIs-Es-buX" id="KaL-46-Lgf">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="54.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Цветовая схема" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Kp-WK-ntb">
+                                                    <rect key="frame" x="86" y="0.0" width="218" height="54.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="colorPalette" id="kkD-5v-w9C">
+                                                    <rect key="frame" x="16" y="0.0" width="55" height="54.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <inset key="separatorInset" minX="50" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="ghS-4e-kz2" id="y25-ZE-OFz"/>
+                            <outlet property="delegate" destination="ghS-4e-kz2" id="k4G-Tk-cM0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Настройки" id="9ba-xJ-nh0">
+                        <barButtonItem key="backBarButtonItem" title="Закрыть" id="Fqm-39-fbW"/>
+                        <barButtonItem key="leftBarButtonItem" title="Закрыть" id="uci-ug-v2h">
+                            <connections>
+                                <action selector="closeView:" destination="ghS-4e-kz2" id="Ecg-aW-Qts"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cell" destination="OIs-Es-buX" id="iCt-7R-3QC"/>
+                        <outlet property="contentView" destination="KaL-46-Lgf" id="fLL-m8-fNa"/>
+                        <outlet property="imageCell" destination="kkD-5v-w9C" id="W9z-yS-7Cj"/>
+                        <outlet property="titleLbl" destination="5Kp-WK-ntb" id="7Yg-RR-aYl"/>
+                        <segue destination="39N-FS-tq5" kind="presentation" identifier="ColorThemeView" modalTransitionStyle="flipHorizontal" id="kUD-in-BXf"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ay6-kG-t1h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3806.25" y="350.7042253521127"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="1QG-jf-4Qm">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="39N-FS-tq5" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ajz-Qp-ius" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4322.8125" y="238.73239436619718"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cRT-WH-pgc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GX5-k9-wLJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MUt-Qy-8fi">
+                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ghS-4e-kz2" kind="relationship" relationship="rootViewController" id="AgH-aQ-OZn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="59i-sV-C1R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2808.75" y="350.7042253521127"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="colorPalette" width="66" height="66"/>
+        <namedColor name="darkColor">
+            <color red="0.096000000834465027" green="0.14800000190734863" blue="0.25900000333786011" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,521 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B17B99D2228820500D944F7 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B17B99B2228820500D944F7 /* Settings.storyboard */; };
+		3B17B9A6222888B200D944F7 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B9A5222888B200D944F7 /* ThemeManager.swift */; };
+		3B2236EC222141F400561112 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2236EB222141F300561112 /* ConversationViewController.swift */; };
+		3B2DDB42221E0619005D5272 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDB41221E0619005D5272 /* ConversationsListViewController.swift */; };
+		3B2DDB44221E0A25005D5272 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDB43221E0A25005D5272 /* ConversationTableViewCell.swift */; };
+		3B2DDB46221E0C3C005D5272 /* ConversationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */; };
+		3B3ADE912214BEBF000D97B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3ADE902214BEBF000D97B5 /* ProfileViewController.swift */; };
+		3B3C0C48222DCDE60009E917 /* SettingTableView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B3C0C46222DCDE60009E917 /* SettingTableView.storyboard */; };
+		3B3C0C4A222DCE230009E917 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C0C49222DCE230009E917 /* SettingsTableViewController.swift */; };
+		3B5D0F17223856A800612E4A /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D0F13223856A800612E4A /* Themes.m */; };
+		3B5D0F18223856A800612E4A /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D0F14223856A800612E4A /* ThemesViewController.m */; };
+		3B5D9E962240DEA00016338B /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D9E952240DEA00016338B /* Message.swift */; };
+		3B5D9E982240DF560016338B /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D9E972240DF560016338B /* Communicator.swift */; };
+		3B630D9C2242AFA2006B1800 /* fintech.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B630D9A2242AFA2006B1800 /* fintech.xcdatamodeld */; };
+		3B630D9E2242B0D3006B1800 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B630D9D2242B0D3006B1800 /* CoreData.swift */; };
+		3BB73B7E22215D1B00EB5FA8 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB73B7D22215D1B00EB5FA8 /* MessageTableViewCell.swift */; };
+		3BCD0B6A2229F7DE0028A768 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBDC58A2229F5DE00880D79 /* Foundation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		3BDA63EE222D49CC00D381D8 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B9A0222883D600D944F7 /* ThemesViewController.swift */; };
+		3BE05EE422385A4A00CC1B36 /* ProveileViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */; };
+		3BE998112232D1E600185AEF /* ReadWriteDataToDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */; };
+		3BE998132235403700185AEF /* template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE998122235403600185AEF /* template.swift */; };
+		3BEF8BC5220B73AC00641B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */; };
+		3BEF8BCA220B73AC00641B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BC8220B73AC00641B2B /* Main.storyboard */; };
+		3BEF8BCC220B73AE00641B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BCB220B73AE00641B2B /* Assets.xcassets */; };
+		3BEF8BCF220B73AE00641B2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BCD220B73AE00641B2B /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3B17B99C2228820500D944F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = fintechChat/Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		3B17B9A0222883D600D944F7 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
+		3B17B9A5222888B200D944F7 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		3B2236EB222141F300561112 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		3B2DDB41221E0619005D5272 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
+		3B2DDB43221E0A25005D5272 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsList.swift; sourceTree = "<group>"; };
+		3B3ADE902214BEBF000D97B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3B3C0C47222DCDE60009E917 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = fintechChat/Storyboard/Base.lproj/SettingTableView.storyboard; sourceTree = "<group>"; };
+		3B3C0C49222DCE230009E917 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		3B5D0F12223856A800612E4A /* Themes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		3B5D0F13223856A800612E4A /* Themes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		3B5D0F14223856A800612E4A /* ThemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
+		3B5D0F15223856A800612E4A /* ThemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
+		3B5D0F16223856A800612E4A /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
+		3B5D0F1A223856FE00612E4A /* fintechChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fintechChat-Bridging-Header.h"; sourceTree = "<group>"; };
+		3B5D9E952240DEA00016338B /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		3B5D9E972240DF560016338B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
+		3B630D9B2242AFA2006B1800 /* fintech.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = fintech.xcdatamodel; sourceTree = "<group>"; };
+		3B630D9D2242B0D3006B1800 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
+		3BB73B7D22215D1B00EB5FA8 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		3BBDC58A2229F5DE00880D79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProveileViewExtension.swift; sourceTree = "<group>"; };
+		3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteDataToDisk.swift; sourceTree = "<group>"; };
+		3BE998122235403600185AEF /* template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = template.swift; sourceTree = "<group>"; };
+		3BEF8BC1220B73AC00641B2B /* fintechChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fintechChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3BEF8BC9220B73AC00641B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3BEF8BCB220B73AE00641B2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3BEF8BCE220B73AE00641B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3BEF8BD0220B73AE00641B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3BEF8BBE220B73AC00641B2B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BCD0B6A2229F7DE0028A768 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B17B99E2228821F00D944F7 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				3B630D9A2242AFA2006B1800 /* fintech.xcdatamodeld */,
+				3B3C0C46222DCDE60009E917 /* SettingTableView.storyboard */,
+				3BEF8BC8220B73AC00641B2B /* Main.storyboard */,
+				3BEF8BCD220B73AE00641B2B /* LaunchScreen.storyboard */,
+				3B17B99B2228820500D944F7 /* Settings.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		3B17B99F222883AD00D944F7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B2236EB222141F300561112 /* ConversationViewController.swift */,
+				3B2DDB41221E0619005D5272 /* ConversationsListViewController.swift */,
+				3B2DDB43221E0A25005D5272 /* ConversationTableViewCell.swift */,
+				3BB73B7D22215D1B00EB5FA8 /* MessageTableViewCell.swift */,
+				3B3ADE902214BEBF000D97B5 /* ProfileViewController.swift */,
+				3B17B9A0222883D600D944F7 /* ThemesViewController.swift */,
+				3B3C0C49222DCE230009E917 /* SettingsTableViewController.swift */,
+				3B5D0F1A223856FE00612E4A /* fintechChat-Bridging-Header.h */,
+				3B5D0F19223856D800612E4A /* objc */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3B5D0F19223856D800612E4A /* objc */ = {
+			isa = PBXGroup;
+			children = (
+				3B5D0F12223856A800612E4A /* Themes.h */,
+				3B5D0F13223856A800612E4A /* Themes.m */,
+				3B5D0F15223856A800612E4A /* ThemesViewController.h */,
+				3B5D0F14223856A800612E4A /* ThemesViewController.m */,
+				3B5D0F16223856A800612E4A /* ThemesViewControllerDelegate.h */,
+			);
+			path = objc;
+			sourceTree = "<group>";
+		};
+		3BB73B7C22215C3600EB5FA8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3B17B9A5222888B200D944F7 /* ThemeManager.swift */,
+				3B630D9D2242B0D3006B1800 /* CoreData.swift */,
+				3B5D9E972240DF560016338B /* Communicator.swift */,
+				3B5D9E952240DEA00016338B /* Message.swift */,
+				3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */,
+				3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */,
+				3BE998122235403600185AEF /* template.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3BBDC5892229F5DD00880D79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BBDC58A2229F5DE00880D79 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BE05EE222385A1A00CC1B36 /* Extention */ = {
+			isa = PBXGroup;
+			children = (
+				3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */,
+			);
+			path = Extention;
+			sourceTree = "<group>";
+		};
+		3BEF8BB8220B73AC00641B2B = {
+			isa = PBXGroup;
+			children = (
+				3BEF8BC3220B73AC00641B2B /* fintechChat */,
+				3BEF8BC2220B73AC00641B2B /* Products */,
+				3BBDC5892229F5DD00880D79 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3BEF8BC2220B73AC00641B2B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3BEF8BC1220B73AC00641B2B /* fintechChat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3BEF8BC3220B73AC00641B2B /* fintechChat */ = {
+			isa = PBXGroup;
+			children = (
+				3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */,
+				3BE05EE222385A1A00CC1B36 /* Extention */,
+				3B17B99F222883AD00D944F7 /* Controllers */,
+				3BB73B7C22215C3600EB5FA8 /* Model */,
+				3BEF8BCB220B73AE00641B2B /* Assets.xcassets */,
+				3B17B99E2228821F00D944F7 /* Storyboard */,
+				3BEF8BD0220B73AE00641B2B /* Info.plist */,
+			);
+			path = fintechChat;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3BEF8BC0220B73AC00641B2B /* fintechChat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BEF8BD3220B73AE00641B2B /* Build configuration list for PBXNativeTarget "fintechChat" */;
+			buildPhases = (
+				3BEF8BBD220B73AC00641B2B /* Sources */,
+				3BEF8BBE220B73AC00641B2B /* Frameworks */,
+				3BEF8BBF220B73AC00641B2B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = fintechChat;
+			productName = fintechChat;
+			productReference = 3BEF8BC1220B73AC00641B2B /* fintechChat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3BEF8BB9220B73AC00641B2B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Jack Sp@rroW";
+				TargetAttributes = {
+					3BEF8BC0220B73AC00641B2B = {
+						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1010;
+					};
+				};
+			};
+			buildConfigurationList = 3BEF8BBC220B73AC00641B2B /* Build configuration list for PBXProject "fintechChat" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3BEF8BB8220B73AC00641B2B;
+			productRefGroup = 3BEF8BC2220B73AC00641B2B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3BEF8BC0220B73AC00641B2B /* fintechChat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3BEF8BBF220B73AC00641B2B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BEF8BCF220B73AE00641B2B /* LaunchScreen.storyboard in Resources */,
+				3BEF8BCC220B73AE00641B2B /* Assets.xcassets in Resources */,
+				3BEF8BCA220B73AC00641B2B /* Main.storyboard in Resources */,
+				3B3C0C48222DCDE60009E917 /* SettingTableView.storyboard in Resources */,
+				3B17B99D2228820500D944F7 /* Settings.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3BEF8BBD220B73AC00641B2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B5D0F18223856A800612E4A /* ThemesViewController.m in Sources */,
+				3BB73B7E22215D1B00EB5FA8 /* MessageTableViewCell.swift in Sources */,
+				3B2DDB44221E0A25005D5272 /* ConversationTableViewCell.swift in Sources */,
+				3B5D9E982240DF560016338B /* Communicator.swift in Sources */,
+				3B3ADE912214BEBF000D97B5 /* ProfileViewController.swift in Sources */,
+				3B630D9C2242AFA2006B1800 /* fintech.xcdatamodeld in Sources */,
+				3BE998112232D1E600185AEF /* ReadWriteDataToDisk.swift in Sources */,
+				3B2236EC222141F400561112 /* ConversationViewController.swift in Sources */,
+				3B630D9E2242B0D3006B1800 /* CoreData.swift in Sources */,
+				3B17B9A6222888B200D944F7 /* ThemeManager.swift in Sources */,
+				3BE05EE422385A4A00CC1B36 /* ProveileViewExtension.swift in Sources */,
+				3B2DDB46221E0C3C005D5272 /* ConversationsList.swift in Sources */,
+				3B5D0F17223856A800612E4A /* Themes.m in Sources */,
+				3B3C0C4A222DCE230009E917 /* SettingsTableViewController.swift in Sources */,
+				3BDA63EE222D49CC00D381D8 /* ThemesViewController.swift in Sources */,
+				3BEF8BC5220B73AC00641B2B /* AppDelegate.swift in Sources */,
+				3B5D9E962240DEA00016338B /* Message.swift in Sources */,
+				3B2DDB42221E0619005D5272 /* ConversationsListViewController.swift in Sources */,
+				3BE998132235403700185AEF /* template.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3B17B99B2228820500D944F7 /* Settings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B17B99C2228820500D944F7 /* Base */,
+			);
+			name = Settings.storyboard;
+			sourceTree = "<group>";
+		};
+		3B3C0C46222DCDE60009E917 /* SettingTableView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B3C0C47222DCDE60009E917 /* Base */,
+			);
+			name = SettingTableView.storyboard;
+			sourceTree = "<group>";
+		};
+		3BEF8BC8220B73AC00641B2B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BEF8BC9220B73AC00641B2B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3BEF8BCD220B73AE00641B2B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BEF8BCE220B73AE00641B2B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3BEF8BD1220B73AE00641B2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3BEF8BD2220B73AE00641B2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3BEF8BD4220B73AE00641B2B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7A2MDG26ZT;
+				INFOPLIST_FILE = fintechChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stepanet.fintechChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG SHOWLOG";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "fintechChat/Controllers/fintechChat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3BEF8BD5220B73AE00641B2B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7A2MDG26ZT;
+				INFOPLIST_FILE = fintechChat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.stepanet.fintechChat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "fintechChat/Controllers/fintechChat-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3BEF8BBC220B73AC00641B2B /* Build configuration list for PBXProject "fintechChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BEF8BD1220B73AE00641B2B /* Debug */,
+				3BEF8BD2220B73AE00641B2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BEF8BD3220B73AE00641B2B /* Build configuration list for PBXNativeTarget "fintechChat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BEF8BD4220B73AE00641B2B /* Debug */,
+				3BEF8BD5220B73AE00641B2B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3B630D9A2242AFA2006B1800 /* fintech.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3B630D9B2242AFA2006B1800 /* fintech.xcdatamodel */,
+			);
+			currentVersion = 3B630D9B2242AFA2006B1800 /* fintech.xcdatamodel */;
+			path = fintech.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 3BEF8BB9220B73AC00641B2B /* Project object */;
+}
