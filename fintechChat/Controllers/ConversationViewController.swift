@@ -45,9 +45,10 @@ class ConversationViewController: UIViewController {
         if (messageTxtField.text?.count)! > 0 {
             
             //добавим сообщение в массив
-            addDataToArrayMsg(text: messageTxtField.text!, fromUser: fromUser!, toUser: toUser!)
-            print(fromUser!, toUser!,toUserPeer.displayName)
-            sendText(text: messageTxtField.text!, peerID: toUserPeer)
+            addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
+            
+            //print(fromUser!, toUser!,toUserPeer.displayName)
+            sendText(text: messageTxtField.text!, peerID: conversationData[0].peerID)
             print(messageLists)
             tableView.reloadData()
         }
@@ -68,7 +69,7 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
             print("can not encode data")
         }
            DispatchQueue.main.async {
-                self.addDataToArrayMsg(text: str, fromUser: self.fromUser!, toUser: self.toUser!)
+                self.addDataToArrayMsg(text: str, fromUser: self.conversationData[0].peerID.displayName, toUser: self.session.myPeerID.displayName)
                 self.tableView.reloadData()
             }
     }
