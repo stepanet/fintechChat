@@ -41,6 +41,8 @@ struct MessageLists: MessageCellConfiguration {
 }
 
 
+
+
 protocol SaveDataProtocol {
     var saveData: Bool {get set}
     var savePhoto: Bool {get set}
@@ -63,17 +65,25 @@ struct SaveData: SaveDataProtocol {
 }
 
 
-class MessageListClass: MessageCellConfiguration {
+class MessageListClass {
     //хочу доступ к массиву из всего проекта
-    var array = [MessageLists]()
-    var text: String?
-    var fromUser: String?
-    var toUser: String?
+    var messageLists = [MessageLists]()
+    
+    var text: String = ""
+    var fromUser: String = ""
+    var toUser: String = ""
+    
+    init(text: String?, fromUser: String?, toUser: String?) {
+        self.text = text!
+        self.fromUser = fromUser!
+        self.toUser = toUser!
+    }
     
     
     func saveDataToArray(text: String, fromUser: String, toUSer: String) {
         let item = MessageLists(text: text, fromUser: fromUser, toUser: toUSer)
-        array.append(item)
+        messageLists.append(item)
+        
     }
     
 }

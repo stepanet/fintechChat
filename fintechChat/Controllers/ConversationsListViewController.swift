@@ -20,6 +20,7 @@ class ConversationsListViewController: UIViewController {
     var conversationListsHistory = [ConversationList]()
     var conversationData = [ConversationList]()
     var messageLists = [MessageLists]()
+    var messageListClass: MessageListClass!
     
     let coreDate = CoreData()
     
@@ -29,7 +30,7 @@ class ConversationsListViewController: UIViewController {
     
     
     let MessageServiceType = "tinkoff-chat"
-    let discaveryInfo = ["userName": UIDevice.current.name + " DmitryPyatin"]
+    let discoveryInfo = ["userName": UIDevice.current.name + " DmitryPyatin"]
     var myPeerId: MCPeerID!
     var session: MCSession!
     
@@ -47,7 +48,7 @@ class ConversationsListViewController: UIViewController {
         myPeerId = MCPeerID(displayName: UIDevice.current.name + " DmitryPyatin")
         
         //Делаем устройство видимым для других
-        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: discaveryInfo, serviceType: MessageServiceType)
+        serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: discoveryInfo, serviceType: MessageServiceType)
         //Ищем другие устройства
         serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: MessageServiceType)
         
@@ -142,6 +143,8 @@ extension ConversationsListViewController: UITableViewDataSource {
         if let destination = segue.destination as? ConversationViewController {
             destination.session = session
             destination.conversationData = conversationData
+            destination.messageLists = messageLists
+            destination.messageListClass = messageListClass
         }
     }
     
@@ -303,6 +306,7 @@ extension ConversationsListViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("22222didReceiveData222222: \(data)")
+        
         let jsonDecoder = JSONDecoder()
         var str = ""
         do {
@@ -320,6 +324,7 @@ extension ConversationsListViewController: MCSessionDelegate {
             let itemMessage = MessageLists(text: str ,fromUser: peerID.displayName, toUser: myPeerId.displayName )
             let item = ConversationList(name: peerID.displayName, message: str, date: Date(), online: true, hasUnreadMessage: true, peerID: peerID)
             self.messageLists.append(itemMessage)
+            //self.messageListClass.saveDataToArray(text: str, fromUser: peerID.displayName, toUSer: myPeerId.displayName)
             self.conversationListsOnline.append(item)
             print("conversationListsOnline", conversationListsOnline)
         }
@@ -341,20 +346,6 @@ extension ConversationsListViewController: MCSessionDelegate {
         print("didFinishReceivingResourceWithName")
     }
     
-    
-//    func sendText(text: String, peerID: MCPeerID) {
-//        if session.connectedPeers.count > 0 {
-//            let jsonEncoder = JSONEncoder()
-//            let jsonMessage = try? jsonEncoder.encode(text)
-//
-//            do {
-//                try self.session.send(jsonMessage!, toPeers: [peerID], with: .reliable)
-//            }
-//            catch let error {
-//               print("Ошибка отправки: \(error)")
-//            }
-//        }
-//    }
 }
 
 extension UIImage {

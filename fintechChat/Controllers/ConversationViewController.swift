@@ -9,24 +9,32 @@
 import UIKit
 import MultipeerConnectivity
 
-class ConversationViewController: UIViewController {
+class ConversationViewController: UIViewController, UITextFieldDelegate {
 
+    
+//    var conversationLists = [ConversationList]()
+//    var conversationListsOnline = [ConversationList]()
+//    var conversationListsHistory = [ConversationList]()
     var conversationData = [ConversationList]()
     var messageLists = [MessageLists]()
+    var messageListClass: MessageListClass!
     var session: MCSession!
     
     @IBOutlet weak var messageTxtField: UITextField!
     @IBOutlet weak var sendMessageBtn: UIButton!
-    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+//        print("messageListClass", messageListClass.messageLists)
         self.navigationItem.title = conversationData[0].peerID.displayName
         session.delegate = self
+        messageTxtField.delegate = self
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.tableView.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        keyboardSetup()
     }
 
     @IBAction func sendMsgActionBtn(_ sender: UIButton) {
@@ -36,6 +44,7 @@ class ConversationViewController: UIViewController {
             addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
             //отошлем пиру
             sendText(text: messageTxtField.text!, peerID: conversationData[0].peerID)
+            messageTxtField.resignFirstResponder()
             tableView.reloadData()
         }
     }
@@ -122,7 +131,34 @@ extension ConversationViewController: UITableViewDataSource , MCSessionDelegate 
                 print("Ошибка отправки: \(error)")
             }
         }
-    }    
+    }
+    
+    func keyboardSetup() {
+        // Keyboard notifications:
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
+            self.view.frame.origin.y = -320
+            
+            //let indexPath = IndexPath(row: self.messageLists.count - 1, section: 0)
+            //self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification, object: nil, queue: nil) { (nc) in
+            self.view.frame.origin.y = 0.0
+        }
+    }
+    
+    // скроем клавиатуру при нажатии на энтер
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == "\n"
+        {
+            sendMsgActionBtn(sendMessageBtn)
+            messageTxtField.resignFirstResponder()
+            return true
+        }
+        return true
+    }
+    
+    
+    
 }
 
 

@@ -44,6 +44,7 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
 
         aboutProfileTextView.delegate = self
         profileNameTxt.delegate = self
+        keyboardSetup()
         loadProfileData()
     }
     
@@ -305,6 +306,19 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         }
         alertController.addAction(actionSave)
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func keyboardSetup() {
+        // Keyboard notifications:
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
+            self.view.frame.origin.y = -270
+            
+            //let indexPath = IndexPath(row: self.messageLists.count - 1, section: 0)
+            //self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification, object: nil, queue: nil) { (nc) in
+            self.view.frame.origin.y = 0.0
+        }
     }
 }
 
