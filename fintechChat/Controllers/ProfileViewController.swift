@@ -96,16 +96,16 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
             return
         } else {
             //print(result.first!.name ?? "error")
-            
+//
             let image = UIImage(data: (result.first?.image)!)
             profileNameTxt.text =  result.first?.name
             aboutProfileTextView.text = result.first?.about
             profileImageView.image = image
+            
         }
         
 
     }
-    
  
     //выбор фотографии в профайл
     func handleSelectProfileImageView(_ source: ImageSource){

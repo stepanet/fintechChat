@@ -66,7 +66,6 @@ class ConversationsListViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
         loadData()
-        navBarBtnSetup()
     }
     
     deinit {
@@ -76,6 +75,7 @@ class ConversationsListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         session.delegate = self
+        navBarBtnSetup()
     }
     
     func navBarBtnSetup() {

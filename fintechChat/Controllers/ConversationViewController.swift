@@ -23,12 +23,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var messageTxtField: UITextField!
     @IBOutlet weak var sendMessageBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var textView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-//        print("messageListClass", messageListClass.messageLists)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 60
+        
         self.navigationItem.title = conversationData[0].peerID.displayName
         session.delegate = self
         messageTxtField.delegate = self
@@ -45,7 +48,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
             //отошлем пиру
             sendText(text: messageTxtField.text!, peerID: conversationData[0].peerID)
             messageTxtField.resignFirstResponder()
-            tableView.reloadData()
+            updateTable()
+        }
+    }
+    
+    func updateTable(){
+        tableView.reloadData()
+        if self.messageLists.count != 0 {
+            let indexPath = IndexPath(row: self.messageLists.count - 1, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
     }
 }
@@ -66,7 +77,7 @@ extension ConversationViewController: UITableViewDataSource , MCSessionDelegate 
         }
            DispatchQueue.main.async {
                 self.addDataToArrayMsg(text: str, fromUser: self.conversationData[0].peerID.displayName, toUser: self.session.myPeerID.displayName)
-                self.tableView.reloadData()
+                    self.updateTable()
             }
     }
     
@@ -95,6 +106,8 @@ extension ConversationViewController: UITableViewDataSource , MCSessionDelegate 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+
+        
         if (messageLists[indexPath.row].toUser == session.myPeerID.displayName ) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
             let text = messageLists[indexPath.row].text
@@ -136,11 +149,11 @@ extension ConversationViewController: UITableViewDataSource , MCSessionDelegate 
     func keyboardSetup() {
         // Keyboard notifications:
         NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
-            self.view.frame.origin.y = -320
-            
-            //let indexPath = IndexPath(row: self.messageLists.count - 1, section: 0)
-            //self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        }
+
+            self.view.frame.origin.y = -350
+            }
+        
+    
         NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification, object: nil, queue: nil) { (nc) in
             self.view.frame.origin.y = 0.0
         }
