@@ -11,7 +11,6 @@ import MultipeerConnectivity
 import CoreData
 
 class ConversationsListViewController: UIViewController {
-
     
     @IBOutlet var tableView: UITableView!
     
@@ -26,16 +25,15 @@ class ConversationsListViewController: UIViewController {
     
     //let messageService = MultiPeerCommunicator()
     //слияние газпрома и роснефти прошло успешно
-    //а евро тем временем в инвестициях = 72.98
+    //а евро тем временем в инвестициях = 72.55
     
     
     let MessageServiceType = "tinkoff-chat"
     let discoveryInfo = ["userName": UIDevice.current.name + " DmitryPyatin"]
     var myPeerId: MCPeerID!
     var session: MCSession!
-    
-    var fromUser: String?
     var fromUserPeer: MCPeerID!
+    
     
     var serviceAdvertiser: MCNearbyServiceAdvertiser!
     var serviceBrowser: MCNearbyServiceBrowser!
@@ -93,7 +91,7 @@ class ConversationsListViewController: UIViewController {
         image = image!.resizeImage(targetSize: size)
 
         let button = UIButton()
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 20
         button.clipsToBounds = true
         button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         button.setImage(image, for: .normal)
@@ -108,9 +106,6 @@ class ConversationsListViewController: UIViewController {
         performSegue(withIdentifier: "ShowDetailsProfile", sender: self)
     }
 }
-
-
-
 
 extension ConversationsListViewController: UITableViewDelegate {
 
@@ -250,7 +245,7 @@ extension ConversationsListViewController : MCNearbyServiceBrowserDelegate {
         print("пригласили участника: \(peerID)")
         //зовем к себе
         
-       // fromUserPeer = peerID  //это пир кто к нам подключился
+        //это пир кто к нам подключился
         browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10)
     }
     
@@ -305,8 +300,7 @@ extension ConversationsListViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("22222didReceiveData222222: \(data)")
-        
+        //print("22222didReceiveData222222: \(data)")
         let jsonDecoder = JSONDecoder()
         var str = ""
         do {
@@ -315,7 +309,7 @@ extension ConversationsListViewController: MCSessionDelegate {
         } catch let error {
             print(error)
         }
-        print(str)
+        //print(str)
         let index = conversationListsOnline.firstIndex(where: { $0.name == peerID.displayName })
         
         if str.count > 0 {
@@ -326,7 +320,6 @@ extension ConversationsListViewController: MCSessionDelegate {
             self.messageLists.append(itemMessage)
             //self.messageListClass.saveDataToArray(text: str, fromUser: peerID.displayName, toUSer: myPeerId.displayName)
             self.conversationListsOnline.append(item)
-            print("conversationListsOnline", conversationListsOnline)
         }
         DispatchQueue.main.async {
             self.conversationListsOnline.sort(by: { $0.date!.compare($1.date!) == .orderedDescending })
@@ -360,7 +353,6 @@ extension UIImage {
         self.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
         return newImage!
     }
 }
