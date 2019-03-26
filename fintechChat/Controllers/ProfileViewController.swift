@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
     var saveDataOnMemory = SaveData()
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
-    let coreDate = CoreData()
+    let coreDate = CoreDataStack()
     
     enum ImageSource {
         case photoLibrary
@@ -87,22 +87,25 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
     //подгрузим данные в профиль
     private func loadProfileData() {
         
-        //считываем данные  из coreDate
-        let model = coreDate.managedObjectModel
-        let user = AppUser.fetchRequest(model: model, templateName: "AppUser")
-        let result =  try! coreDate.mainContext.fetch(user!)
-        if result.isEmpty {
-            print("c o r e d a t a i s e m p t y ")
-            return
-        } else {
-            //print(result.first!.name ?? "error")
-//
-            let image = UIImage(data: (result.first?.image)!)
-            profileNameTxt.text =  result.first?.name
-            aboutProfileTextView.text = result.first?.about
-            profileImageView.image = image
-            
+
+        
+        coreDate.mainContext.perform {
+            //считываем данные  из coreDate
+            let model = self.coreDate.managedObjectModel
+            let user = AppUser.fetchRequest(model: model, templateName: "AppUser")
+            let result =  try! self.coreDate.mainContext.fetch(user!)
+            if result.isEmpty {
+                print("c o r e d a t a i s e m p t y ")
+                return
+            } else {
+                let image = UIImage(data: (result.first?.image)!)
+                self.profileNameTxt.text =  result.first?.name
+                self.aboutProfileTextView.text = result.first?.about
+                self.profileImageView.image = image
+                
+            }
         }
+
         
 
     }
@@ -249,12 +252,16 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         //work with coreData
         
         //очистим все
-        _ = AppUser.cleanDeleteAppUser(in: coreDate.masterContext)
-        //записываем данные
-        _ = AppUser.insertAppUser(in: coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
-        try! coreDate.masterContext.save()
+        coreDate.masterContext.perform {
+            _ = AppUser.cleanDeleteAppUser(in: self.coreDate.masterContext)
+//        }
+//        coreDate.mainContext.perform {
+            //записываем данные
+            _ = AppUser.insertAppUser(in: self.coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
+            try! self.coreDate.masterContext.save()
+
+        }
         self.saveDataStart()
-        
     }
 
     //safe data

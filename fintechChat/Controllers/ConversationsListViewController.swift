@@ -21,7 +21,7 @@ class ConversationsListViewController: UIViewController {
     var messageLists = [MessageLists]()
     var messageListClass: MessageListClass!
     
-    let coreDate = CoreData()
+    let coreDate = CoreDataStack()
     
     //let messageService = MultiPeerCommunicator()
     //слияние газпрома и роснефти прошло успешно
@@ -79,26 +79,28 @@ class ConversationsListViewController: UIViewController {
     func navBarBtnSetup() {
         
         let model = coreDate.managedObjectModel
-        let user = AppUser.fetchRequest1(model: model, templateName: "AppUserImg")
-        
-        let result =  try! coreDate.masterContext.fetch(user!)
-        
-        if result.isEmpty {
-            return
+        let user = AppUser.fetchRequest(model: model, templateName: "AppUser")
+        coreDate.masterContext.perform {
+            let result =  try! self.coreDate.masterContext.fetch(user!)
+            if result.isEmpty {
+                return
+            }
+            var image = UIImage(data: (result.first?.image)!)
+            let size = CGSize(width: 40, height: 40)
+            image = image!.resizeImage(targetSize: size)
+            DispatchQueue.main.async {
+                let button = UIButton()
+                button.layer.cornerRadius = 20
+                button.clipsToBounds = true
+                button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+                button.setImage(image, for: .normal)
+                button.addTarget(self, action: #selector(self.pressAction), for: .touchUpInside)
+                let barButton = UIBarButtonItem()
+                barButton.customView = button
+                self.navigationItem.rightBarButtonItem = barButton
+            }
         }
-        var image = UIImage(data: (result.first?.image)!)
-        let size = CGSize(width: 40, height: 40)
-        image = image!.resizeImage(targetSize: size)
-
-        let button = UIButton()
-        button.layer.cornerRadius = 20
-        button.clipsToBounds = true
-        button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        button.setImage(image, for: .normal)
-        button.addTarget(self, action: #selector(pressAction), for: .touchUpInside)
-        let barButton = UIBarButtonItem()
-        barButton.customView = button
-        self.navigationItem.rightBarButtonItem = barButton
+        
     }
     
     @objc func pressAction(){

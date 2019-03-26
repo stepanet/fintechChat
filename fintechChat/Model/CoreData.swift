@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-class CoreData: NSObject {
+class CoreDataStack: NSObject {
     
     var storeUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -44,9 +44,9 @@ class CoreData: NSObject {
         var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType )
         
         //делаем ссылку на coordinatora или на другой NSManagedObjectContext
-        masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        masterContext.mergePolicy = NSOverwriteMergePolicy
-        return masterContext
+            masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+            masterContext.mergePolicy = NSOverwriteMergePolicy
+            return masterContext
     }()
     
     
@@ -86,17 +86,6 @@ extension AppUser {
     }
     
     static func fetchRequest(model: NSManagedObjectModel, templateName: String) -> NSFetchRequest<AppUser>? {
-        
-        let templateName = templateName //"AppUser"
-        
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
-            assert(false, "No template")
-            return nil
-        }
-        return fetchRequest
-    }
-    
-    static func fetchRequest1(model: NSManagedObjectModel, templateName: String) -> NSFetchRequest<AppUser>? {
         
         let templateName = templateName //"AppUser"
         
