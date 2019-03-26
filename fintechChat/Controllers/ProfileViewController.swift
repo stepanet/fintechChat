@@ -254,8 +254,6 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         //очистим все
         coreDate.masterContext.perform {
             _ = AppUser.cleanDeleteAppUser(in: self.coreDate.masterContext)
-//        }
-//        coreDate.mainContext.perform {
             //записываем данные
             _ = AppUser.insertAppUser(in: self.coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
             try! self.coreDate.masterContext.save()
@@ -270,7 +268,6 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         self.fieldProfileDisable()
         self.btnAfterSave()
         self.loadProfileData()
-        //self.activityIndicator.stopAnimating()
     }
     
     //button and activity state
@@ -319,9 +316,6 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         // Keyboard notifications:
         NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
             self.view.frame.origin.y = -270
-            
-            //let indexPath = IndexPath(row: self.messageLists.count - 1, section: 0)
-            //self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         }
         NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification, object: nil, queue: nil) { (nc) in
             self.view.frame.origin.y = 0.0
