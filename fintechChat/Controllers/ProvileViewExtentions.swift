@@ -1,23 +1,21 @@
 import Foundation
 import UIKit
 
-extension ProfileViewController:  UIImagePickerControllerDelegate, UINavigationControllerDelegate, {
-    
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
  private func setupUI() {
-        enum cornerRadius: CGFloat {
+        enum CornerRadius: CGFloat {
             case imageViewAndPhotoBtn = 40
             case editBtn = 5
         }
 
-        
         view.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        
+
         profileNameTxt.backgroundColor = ThemeManager.currentTheme().backgroundColor
         profileNameTxt.textColor = ThemeManager.currentTheme().titleTextColor
-        
+
         aboutProfileTextView.backgroundColor = ThemeManager.currentTheme().backgroundColor
         aboutProfileTextView.textColor = ThemeManager.currentTheme().titleTextColor
-        
 
         profileImageView.layer.cornerRadius = cornerRadius.imageViewAndPhotoBtn.rawValue //radiusUI
         profileImageView.clipsToBounds = true
@@ -32,60 +30,60 @@ extension ProfileViewController:  UIImagePickerControllerDelegate, UINavigationC
         gcdBtn.layer.borderWidth = 1
         gcdBtn.layer.borderColor = ThemeManager.currentTheme().titleTextColor.cgColor//UIColor.black.cgColor
         gcdBtn.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        
+
         operationBtn.layer.cornerRadius = cornerRadius.editBtn.rawValue
         operationBtn.clipsToBounds = true
         operationBtn.tintColor = ThemeManager.currentTheme().titleTextColor
         operationBtn.layer.borderWidth = 1
         operationBtn.layer.borderColor = ThemeManager.currentTheme().titleTextColor.cgColor//UIColor.black.cgColor
         operationBtn.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        
+
         editBtn.layer.cornerRadius = cornerRadius.editBtn.rawValue
         editBtn.clipsToBounds = true
         editBtn.tintColor = ThemeManager.currentTheme().titleTextColor
         editBtn.layer.borderWidth = 1
         editBtn.layer.borderColor = ThemeManager.currentTheme().titleTextColor.cgColor//UIColor.black.cgColor
         editBtn.backgroundColor = ThemeManager.currentTheme().backgroundColor
-    }    
-    
-    
+    }
+
       //выбор фотографии в профайл
-    func handleSelectProfileImageView(_ source: ImageSource){
+    func handleSelectProfileImageView(_ source: ImageSource) {
 
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
-  
+
         switch source {
             case .camera:
-            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-                takePhotoProfile(cameraOff: true)
-                return
-            }
-             picker.sourceType = .camera
-            case .photoLibrary:
+                guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                    takePhotoProfile(cameraOff: true)
+                return }
+             
+                picker.sourceType = .camera
+            
+             case .photoLibrary:
                 picker.sourceType = .photoLibrary
         }
-        
+
         present(picker, animated: true, completion: {
             self.fieldProfileEnable()
         })
 
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        var selectImageFromPicker:UIImage?
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
+        var selectImageFromPicker: UIImage?
 
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             selectImageFromPicker = editedImage
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             selectImageFromPicker = originalImage
         }
         if let selectedImage = selectImageFromPicker {
             profileImageView.image = selectedImage
             self.saveDataOnMemory.savePhoto = true
-            
+
         }
         dismiss(animated: true, completion: {
             self.btnSaveEnable()
@@ -98,24 +96,23 @@ extension ProfileViewController:  UIImagePickerControllerDelegate, UINavigationC
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
 
     private func takePhotoProfile(cameraOff: Bool) {
-        
+
         var titleForCamera = "Фото"
-        
+
         if cameraOff {
             titleForCamera = "Камера не доступна"
         }
-        
+
         let alertController = UIAlertController(title: "", message: "Выберите фотографию для профиля", preferredStyle: .actionSheet)
-        let actionPhoto = UIAlertAction(title: titleForCamera , style: .default) { (action) in
+        let actionPhoto = UIAlertAction(title: titleForCamera, style: .default) { (_) in
             self.handleSelectProfileImageView(.camera)
         }
-        let actionLibrary = UIAlertAction(title: "Библиотека", style: .default) { (action) in
+        let actionLibrary = UIAlertAction(title: "Библиотека", style: .default) { (_) in
             self.handleSelectProfileImageView(.photoLibrary)
         }
-        let deletePhotoProfile = UIAlertAction(title: "Удалить фото", style: .destructive) { (action) in
+        let deletePhotoProfile = UIAlertAction(title: "Удалить фото", style: .destructive) { (_) in
             let selectedImage = UIImage(named: "placeholder-user")
             self.profileImageView.image = selectedImage
             self.saveDataOnMemory.savePhoto = false
@@ -125,17 +122,16 @@ extension ProfileViewController:  UIImagePickerControllerDelegate, UINavigationC
             self.btnSaveEnable()
 
         }
-        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel) { (action) in
+        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel) { (_) in
         }
         alertController.addAction(actionPhoto)
         alertController.addAction(actionLibrary)
         alertController.addAction(actionCancel)
-        
+
         if self.profileImageView.image != UIImage(named: "placeholder-user") {
             alertController.addAction(deletePhotoProfile)
         }
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
+
 }

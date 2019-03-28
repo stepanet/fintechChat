@@ -27,11 +27,11 @@
 		3BDA63EE222D49CC00D381D8 /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B9A0222883D600D944F7 /* ThemesViewController.swift */; };
 		3BE05EE422385A4A00CC1B36 /* ProveileViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */; };
 		3BE998112232D1E600185AEF /* ReadWriteDataToDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */; };
-		3BE998132235403700185AEF /* template.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE998122235403600185AEF /* template.swift */; };
 		3BEF8BC5220B73AC00641B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */; };
 		3BEF8BCA220B73AC00641B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BC8220B73AC00641B2B /* Main.storyboard */; };
 		3BEF8BCC220B73AE00641B2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BCB220B73AE00641B2B /* Assets.xcassets */; };
 		3BEF8BCF220B73AE00641B2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BCD220B73AE00641B2B /* LaunchScreen.storyboard */; };
+		4860BD014E985648C16BCD46 /* Pods_fintechChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABF2871F12CEF37AE9D26CBA /* Pods_fintechChat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,13 +59,15 @@
 		3BBDC58A2229F5DE00880D79 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProveileViewExtension.swift; sourceTree = "<group>"; };
 		3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteDataToDisk.swift; sourceTree = "<group>"; };
-		3BE998122235403600185AEF /* template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = template.swift; sourceTree = "<group>"; };
 		3BEF8BC1220B73AC00641B2B /* fintechChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fintechChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3BEF8BC9220B73AC00641B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3BEF8BCB220B73AE00641B2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BEF8BCE220B73AE00641B2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3BEF8BD0220B73AE00641B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fintechChat.release.xcconfig"; path = "Target Support Files/Pods-fintechChat/Pods-fintechChat.release.xcconfig"; sourceTree = "<group>"; };
+		AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fintechChat.debug.xcconfig"; path = "Target Support Files/Pods-fintechChat/Pods-fintechChat.debug.xcconfig"; sourceTree = "<group>"; };
+		ABF2871F12CEF37AE9D26CBA /* Pods_fintechChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fintechChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BCD0B6A2229F7DE0028A768 /* Foundation.framework in Frameworks */,
+				4860BD014E985648C16BCD46 /* Pods_fintechChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,7 +132,6 @@
 				3B5D9E952240DEA00016338B /* Message.swift */,
 				3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */,
 				3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */,
-				3BE998122235403600185AEF /* template.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				3BBDC58A2229F5DE00880D79 /* Foundation.framework */,
+				ABF2871F12CEF37AE9D26CBA /* Pods_fintechChat.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				3BEF8BC3220B73AC00641B2B /* fintechChat */,
 				3BEF8BC2220B73AC00641B2B /* Products */,
 				3BBDC5892229F5DD00880D79 /* Frameworks */,
+				8A6244FE0F46A06560B2A109 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,6 +185,15 @@
 			path = fintechChat;
 			sourceTree = "<group>";
 		};
+		8A6244FE0F46A06560B2A109 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */,
+				80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -188,6 +201,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BEF8BD3220B73AE00641B2B /* Build configuration list for PBXNativeTarget "fintechChat" */;
 			buildPhases = (
+				867EEC7B0DF8845C14C6C2BB /* [CP] Check Pods Manifest.lock */,
 				3BEF8BBD220B73AC00641B2B /* Sources */,
 				3BEF8BBE220B73AC00641B2B /* Frameworks */,
 				3BEF8BBF220B73AC00641B2B /* Resources */,
@@ -250,6 +264,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		867EEC7B0DF8845C14C6C2BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+				"${PODS_ROOT}/SwiftLint/swiftlint",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-fintechChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\nexit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3BEF8BBD220B73AC00641B2B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -273,7 +313,6 @@
 				3BEF8BC5220B73AC00641B2B /* AppDelegate.swift in Sources */,
 				3B5D9E962240DEA00016338B /* Message.swift in Sources */,
 				3B2DDB42221E0619005D5272 /* ConversationsListViewController.swift in Sources */,
-				3BE998132235403700185AEF /* template.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +474,7 @@
 		};
 		3BEF8BD4220B73AE00641B2B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -460,6 +500,7 @@
 		};
 		3BEF8BD5220B73AE00641B2B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

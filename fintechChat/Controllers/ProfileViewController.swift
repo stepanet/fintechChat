@@ -9,36 +9,33 @@
 import UIKit
 import CoreData
 
-class ProfileViewController: UIViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate,
-    UITextViewDelegate, UITextFieldDelegate  {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+    UITextViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var takePicturesForProfile: UIButton!
     @IBOutlet var profileNameTxt: UITextField!
     @IBOutlet weak var aboutProfileTextView: UITextView!
-    
+
     @IBOutlet weak var gcdBtn: UIButton!
     @IBOutlet var editBtn: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
-    
+
     var saveDataOnMemory = SaveData()
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
     let coreDate = CoreDataStack()
-    
+
     enum ImageSource {
         case photoLibrary
         case camera
     }
-    
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //невозможно. еще не определены view, subview, переменные
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -47,26 +44,28 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         keyboardSetup()
         loadProfileData()
     }
-    
-    
+
     override func viewWillAppear(_ animated: Bool) {
         //настроим интерфейс
         setupUI()
         btnEditUnHidden()
         fieldProfileDisable()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         //уже известны точные размеры вью и размеры кнопки
     }
-    
+
+    deinit {
+        print("Remove NotificationCenter Deinit")
+        NotificationCenter.default.removeObserver(self)
+    }
     
     //если изменили текст то поставим флаг - сохранить
     func textViewDidChange(_ textView: UITextView) {
         saveDataOnMemory.saveAbout = true
     }
-    
-    
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //максимум 60 символов
         if (profileNameTxt.text?.count)! < 61 {
@@ -77,7 +76,6 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
             return true
         }
     }
-    
 
     @IBAction func tekePIctureBtnAction(_ sender: UIButton) {
         print("Выбери изображение профиля")
@@ -86,32 +84,28 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
 
     //подгрузим данные в профиль
     private func loadProfileData() {
-        
 
-        
         coreDate.mainContext.perform {
             //считываем данные  из coreDate
             let model = self.coreDate.managedObjectModel
             let user = AppUser.fetchRequest(model: model, templateName: "AppUser")
-            let result =  try! self.coreDate.mainContext.fetch(user!)
-            if result.isEmpty {
+            let result =  try? self.coreDate.mainContext.fetch(user!)
+            if result!.isEmpty {
                 print("c o r e d a t a i s e m p t y ")
                 return
             } else {
-                let image = UIImage(data: (result.first?.image)!)
-                self.profileNameTxt.text =  result.first?.name
-                self.aboutProfileTextView.text = result.first?.about
+                let image = UIImage(data: (result?.first?.image)!)
+                self.profileNameTxt.text =  result?.first?.name
+                self.aboutProfileTextView.text = result?.first?.about
                 self.profileImageView.image = image
-                
+
             }
         }
 
-        
-
     }
- 
+
     //выбор фотографии в профайл
-    func handleSelectProfileImageView(_ source: ImageSource){
+    func handleSelectProfileImageView(_ source: ImageSource) {
 
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -134,13 +128,13 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
 
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
-        var selectImageFromPicker:UIImage?
+        var selectImageFromPicker: UIImage?
 
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             selectImageFromPicker = editedImage
-        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             selectImageFromPicker = originalImage
         }
         if let selectedImage = selectImageFromPicker {
@@ -160,7 +154,6 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         dismiss(animated: true, completion: nil)
     }
 
-
     private func takePhotoProfile(cameraOff: Bool) {
 
         var titleForCamera = "Фото"
@@ -170,13 +163,13 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         }
 
         let alertController = UIAlertController(title: "", message: "Выберите фотографию для профиля", preferredStyle: .actionSheet)
-        let actionPhoto = UIAlertAction(title: titleForCamera , style: .default) { (action) in
+        let actionPhoto = UIAlertAction(title: titleForCamera, style: .default) { (_) in
             self.handleSelectProfileImageView(.camera)
         }
-        let actionLibrary = UIAlertAction(title: "Библиотека", style: .default) { (action) in
+        let actionLibrary = UIAlertAction(title: "Библиотека", style: .default) { (_) in
             self.handleSelectProfileImageView(.photoLibrary)
         }
-        let deletePhotoProfile = UIAlertAction(title: "Удалить фото", style: .destructive) { (action) in
+        let deletePhotoProfile = UIAlertAction(title: "Удалить фото", style: .destructive) { (_) in
             let selectedImage = UIImage(named: "placeholder-user")
             self.profileImageView.image = selectedImage
             self.saveDataOnMemory.savePhoto = false
@@ -186,7 +179,7 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
             self.btnSaveEnable()
 
         }
-        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel) { (action) in
+        let actionCancel = UIAlertAction(title: "Отмена", style: .cancel) { (_) in
         }
         alertController.addAction(actionPhoto)
         alertController.addAction(actionLibrary)
@@ -197,33 +190,31 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         }
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
+
     @IBAction func closeProfileView(_ sender: UIBarButtonItem) {
-        
+
         dismiss(animated: true, completion: nil)
     }
-    
+
     //Следим если юзер начал набирать текст или делать изменения
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.btnSaveEnable()
     }
-    
-    
+
     //открываем возможность редактировать профиль
     @IBAction func editData(_ sender: UIButton) {
         self.fieldProfileEnable()
         self.btnEditHidden()
         self.btnSaveDisable()
     }
-    
+
     //делаем поля доступными для редактирования
     fileprivate func fieldProfileEnable() {
         self.profileNameTxt.isEnabled = true
         self.aboutProfileTextView.isEditable = true
         self.takePicturesForProfile.isEnabled = true
     }
-    
+
     //делаем поля не доступными для редактирования
     fileprivate func fieldProfileDisable() {
         gcdQueue.queueMain.async {
@@ -233,7 +224,6 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         }
     }
 
-
     //если начато редактирование - активировать кнопки записи
     @IBAction func editActionStart(_ sender: Any) {
         self.btnSaveEnable()
@@ -241,22 +231,21 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
 
     //сохраняем данные
     @IBAction func safeData(_ sender: UIButton) {
-        
+
         self.activityIndicator.startAnimating()
         self.btnSaveDisable()
         let imageData: Data = (self.profileImageView.image!.pngData())!
         let text = profileNameTxt.text!
         let textAbout = aboutProfileTextView.text!
 
-        
         //work with coreData
-        
+
         //очистим все
         coreDate.masterContext.perform {
             _ = AppUser.cleanDeleteAppUser(in: self.coreDate.masterContext)
             //записываем данные
             _ = AppUser.insertAppUser(in: self.coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
-            try! self.coreDate.masterContext.save()
+            try? self.coreDate.masterContext.save()
 
         }
         self.saveDataStart()
@@ -269,25 +258,25 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
         self.btnAfterSave()
         self.loadProfileData()
     }
-    
+
     //button and activity state
     fileprivate func btnAfterSave() {
         self.btnSaveEnable()
         self.btnEditUnHidden()
     }
-    
+
     //safe button disable
     fileprivate func btnSaveDisable() {
             self.gcdBtn.isEnabled = false
     }
-    
+
     //safe button enable
     fileprivate func btnSaveEnable() {
         gcdQueue.queueMain.async {
             self.gcdBtn.isEnabled = true
         }
     }
-    
+
     //
     fileprivate func btnEditHidden() {
         editBtn.isHidden = true
@@ -301,25 +290,24 @@ class ProfileViewController: UIViewController , UIImagePickerControllerDelegate,
             self.gcdBtn.isHidden = true
         }
     }
-    
+
     //алерт успешно / неуспешно
     func showAlert(textMessage: String) {
         let alertController = UIAlertController(title: nil, message: textMessage, preferredStyle: .alert)
-        let actionSave = UIAlertAction(title: "ОК" , style: .default) { (action) in
+        let actionSave = UIAlertAction(title: "ОК", style: .default) { (_) in
             self.activityIndicator.stopAnimating()
         }
         alertController.addAction(actionSave)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func keyboardSetup() {
         // Keyboard notifications:
-        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (nc) in
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (_) in
             self.view.frame.origin.y = -270
         }
-        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification, object: nil, queue: nil) { (nc) in
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillHideNotification, object: nil, queue: nil) { (_) in
             self.view.frame.origin.y = 0.0
         }
     }
 }
-

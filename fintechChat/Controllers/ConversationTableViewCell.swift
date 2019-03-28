@@ -9,13 +9,11 @@
 import UIKit
 
 class ConversationTableViewCell: UITableViewCell {
-    
+
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var messageLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     @IBOutlet weak var cellViewContent: UIView!
-    
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,12 +26,12 @@ class ConversationTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
    public func dataCell(_ conversationLists: ConversationCellConfiguration) {
-            
+
         nameLbl.text = conversationLists.name
-    
-        if let second = conversationLists.date?.timeIntervalSince1970  {
+
+        if let second = conversationLists.date?.timeIntervalSince1970 {
             let timestampDate = Date(timeIntervalSince1970: second)
             let dateFormatter = DateFormatter()
 
@@ -48,7 +46,7 @@ class ConversationTableViewCell: UITableViewCell {
         if conversationLists.hasUnreadMessage {
             messageLbl.font = UIFont.boldSystemFont(ofSize: 17)
         }
-    
+
         if conversationLists.message == nil {
             messageLbl.text = "No messages yet"
             messageLbl.textColor = .gray
@@ -57,7 +55,7 @@ class ConversationTableViewCell: UITableViewCell {
             messageLbl.text = conversationLists.message
         }
     }
-    
+
     public static func daysBetween(start: Date, end: Date) -> Int {
         return Calendar.current.dateComponents([.day], from: start, to: end).day!
     }
