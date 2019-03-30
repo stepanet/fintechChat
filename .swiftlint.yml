@@ -1,0 +1,29 @@
+excluded:
+  - Pods
+  - MBUITest
+
+disabled_rules:
+  - trailing_whitespace
+  - opening_brace
+  - control_statement
+  - todo
+  - statement_position
+
+line_length:
+  warning: 250
+  error: 400
+  ignores_comments: true
+  ignores_urls: true
+  ignores_function_declarations: true
+
+
+function_parameter_count:
+warning: 10
+error: 15
+
+file_length:
+warning: 500
+
+type_body_length:
+warning: 400
+error: 450

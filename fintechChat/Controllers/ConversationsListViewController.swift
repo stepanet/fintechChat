@@ -266,12 +266,10 @@ extension ConversationsListViewController: MCSessionDelegate {
             print("участник \(peerID) изменил состояние: \(state.rawValue)")
             fromUserPeer = peerID
             if self.conversationListsOnline.contains(where: { $0.name == peerID.displayName }) {
-                if (indexHistory != nil) {
-
-                    conversationListsHistory.remove(at: indexHistory!)
-                }
+                if indexHistory != nil { conversationListsHistory.remove(at: indexHistory!) }
             } else {
-                if (indexHistory != nil) {
+                if indexHistory != nil
+                {
                     conversationListsOnline.append(conversationListsHistory[indexHistory!])
                     conversationListsHistory.remove(at: indexHistory!)
                 } else {

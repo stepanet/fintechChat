@@ -4,27 +4,19 @@ import UIKit
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
  private func setupUI() {
-        enum CornerRadius: CGFloat {
-            case imageViewAndPhotoBtn = 40
-            case editBtn = 5
-        }
 
         view.backgroundColor = ThemeManager.currentTheme().backgroundColor
-
         profileNameTxt.backgroundColor = ThemeManager.currentTheme().backgroundColor
         profileNameTxt.textColor = ThemeManager.currentTheme().titleTextColor
-
         aboutProfileTextView.backgroundColor = ThemeManager.currentTheme().backgroundColor
         aboutProfileTextView.textColor = ThemeManager.currentTheme().titleTextColor
-
-        profileImageView.layer.cornerRadius = cornerRadius.imageViewAndPhotoBtn.rawValue //radiusUI
+        profileImageView.layer.cornerRadius = 40 //radiusUI
         profileImageView.clipsToBounds = true
-
         takePicturesForProfile.layer.cornerRadius = cornerRadius.imageViewAndPhotoBtn.rawValue
         takePicturesForProfile.clipsToBounds = true
         takePicturesForProfile.backgroundColor = ThemeManager.currentTheme().editBtn
 
-        gcdBtn.layer.cornerRadius = cornerRadius.editBtn.rawValue
+        gcdBtn.layer.cornerRadius = 5
         gcdBtn.clipsToBounds = true
         gcdBtn.tintColor = ThemeManager.currentTheme().titleTextColor
         gcdBtn.layer.borderWidth = 1
@@ -56,11 +48,8 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         switch source {
             case .camera:
                 guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
-                    takePhotoProfile(cameraOff: true)
-                return }
-             
+                    takePhotoProfile(cameraOff: true); return }
                 picker.sourceType = .camera
-            
              case .photoLibrary:
                 picker.sourceType = .photoLibrary
         }
