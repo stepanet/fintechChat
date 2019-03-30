@@ -13,7 +13,7 @@ class CoreDataStack: NSObject {
 
     var storeUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-       // print(documentsURL)
+        print(documentsURL)
         return documentsURL.appendingPathComponent("fintech.sqllite")
     }
 
@@ -67,6 +67,17 @@ class CoreDataStack: NSObject {
         return saveContext
     }()
 
+}
+
+extension Conversation {
+    static func insertNewConversation(in context: NSManagedObjectContext, recieveID: String, isOnline: Bool) -> Conversation? {
+        
+        guard let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation", into: context) as? Conversation else { return nil }
+        
+        conversation.recieveID = recieveID
+        conversation.isOnline = isOnline
+        return conversation
+    }
 }
 
 extension AppUser {

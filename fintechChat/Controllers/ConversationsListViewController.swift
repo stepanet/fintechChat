@@ -275,6 +275,17 @@ extension ConversationsListViewController: MCSessionDelegate {
                 } else {
                     let item = ConversationList(name: peerID.displayName, message: nil, date: Date(), online: true, hasUnreadMessage: true, peerID: peerID)
                 self.conversationListsOnline.append(item)
+                    
+                //добавим новый чат в коре дата
+                    coreDate.masterContext.perform {
+
+                        //записываем данные
+                        //_ = AppUser.insertAppUser(in: self.coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
+                        _ = Conversation.insertNewConversation(in: self.coreDate.masterContext, recieveID: peerID.displayName, isOnline: true)
+                        try? self.coreDate.masterContext.save()
+                        
+                    }
+                    
                 }
             }
 
