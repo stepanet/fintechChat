@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 
 class CoreDataStack: NSObject {
+    
 
     var storeUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -66,6 +67,15 @@ class CoreDataStack: NSObject {
         saveContext.mergePolicy = NSOverwriteMergePolicy
         return saveContext
     }()
+    
+    
+    func fetchedResultsController(entityName: String, keyForSort: String, sectionName: String) -> NSFetchedResultsController<NSFetchRequestResult> {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        let sortDescriptor = NSSortDescriptor(key: keyForSort, ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
+        return fetchedResultsController
+    }
 
 }
 
@@ -76,6 +86,8 @@ extension Conversation {
         
         conversation.recieveID = recieveID
         conversation.isOnline = isOnline
+        conversation.conversationID = UUID().uuidString
+        conversation.systemID = UUID().uuidString
         return conversation
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Message: Codable {
+class MessageType: Codable {
     var eventType: String
     var text: String
     var messageId: String
@@ -16,7 +16,7 @@ class Message: Codable {
     init(text: String) {
         self.text = text
         self.eventType = "TextMessage"
-        self.messageId = Message.generateMessageId()
+        self.messageId = MessageType.generateMessageId()
     }
 
     public static func generateMessageId() -> String {

@@ -69,7 +69,7 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
         var str = ""
         let jsonDecode = JSONDecoder()
         do {
-             let msg = try jsonDecode.decode(Message.self, from: data)
+             let msg = try jsonDecode.decode(MessageType.self, from: data)
              str = msg.text
         } catch {
             print("can not encode data")
@@ -132,7 +132,7 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
         if session.connectedPeers.count > 0 {
             print("УРА УРА УРА что-то пошло ")
             let jsonEncoder = JSONEncoder()
-            let msg = Message(text: text)
+            let msg = MessageType(text: text)
             let jsonMessage = try? jsonEncoder.encode(msg)
 
             do {

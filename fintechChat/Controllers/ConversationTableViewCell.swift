@@ -26,7 +26,7 @@ class ConversationTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
    public func dataCell(_ conversationLists: ConversationCellConfiguration) {
 
         nameLbl.text = conversationLists.name

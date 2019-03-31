@@ -24,6 +24,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var saveDataOnMemory = SaveData()
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
+    
     let coreDate = CoreDataStack()
 
     enum ImageSource {
