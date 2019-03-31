@@ -68,6 +68,8 @@
 		80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fintechChat.release.xcconfig"; path = "Target Support Files/Pods-fintechChat/Pods-fintechChat.release.xcconfig"; sourceTree = "<group>"; };
 		AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fintechChat.debug.xcconfig"; path = "Target Support Files/Pods-fintechChat/Pods-fintechChat.debug.xcconfig"; sourceTree = "<group>"; };
 		ABF2871F12CEF37AE9D26CBA /* Pods_fintechChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fintechChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0190057E5ECEBDF1F7AB09F /* Pods-fintechChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fintechChat.release.xcconfig"; path = "Pods/Target Support Files/Pods-fintechChat/Pods-fintechChat.release.xcconfig"; sourceTree = "<group>"; };
+		FA55C8423458FA85D73D2EDE /* Pods-fintechChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fintechChat.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fintechChat/Pods-fintechChat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,8 @@
 			children = (
 				AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */,
 				80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */,
+				FA55C8423458FA85D73D2EDE /* Pods-fintechChat.debug.xcconfig */,
+				F0190057E5ECEBDF1F7AB09F /* Pods-fintechChat.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -275,7 +279,6 @@
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
-				"${PODS_ROOT}/SwiftLint/swiftlint",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
@@ -285,7 +288,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"error: SwiftLint does not exist, download it from https://github.com/realm/SwiftLint\"\nexit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n\nif which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -500,7 +503,7 @@
 		};
 		3BEF8BD5220B73AE00641B2B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */;
+			baseConfigurationReference = AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

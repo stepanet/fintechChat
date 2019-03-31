@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -11,7 +11,7 @@
         <attribute name="isOnline" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="recieveID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="systemID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Messages" inverseName="relationship" inverseEntity="Messages" syncable="YES"/>
+        <relationship name="relationship" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Messages" inverseName="relationship" inverseEntity="Messages" syncable="YES"/>
     </entity>
     <entity name="Messages" representedClassName="Messages" syncable="YES" codeGenerationType="class">
         <attribute name="conversationID" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,12 +21,12 @@
         <attribute name="systemID" optional="YES" attributeType="UUID" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="relationship" inverseEntity="Conversation" syncable="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Conversation" inverseName="relationship" inverseEntity="Conversation" syncable="YES"/>
     </entity>
     <fetchRequest name="AppUser" entity="AppUser"/>
     <elements>
-        <element name="AppUser" positionX="-446.1875" positionY="-63.265625" width="128" height="105"/>
-        <element name="Conversation" positionX="-598.32421875" positionY="86.5625" width="128" height="118"/>
-        <element name="Messages" positionX="-306.6171875" positionY="55.375" width="128" height="163"/>
+        <element name="AppUser" positionX="-818.40234375" positionY="-195.30859375" width="128" height="105"/>
+        <element name="Conversation" positionX="-893.83984375" positionY="78.328125" width="128" height="118"/>
+        <element name="Messages" positionX="-651.30078125" positionY="33.515625" width="128" height="163"/>
     </elements>
 </model>
