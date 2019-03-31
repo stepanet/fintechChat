@@ -10,22 +10,12 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
-class ConversationsListViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class ConversationsListViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
 
-//    var conversationLists = [ConversationList]()
-//    var conversationListsOnline = [ConversationList]()
-//    var conversationListsHistory = [ConversationList]()
-//    var conversationData = [ConversationList]()
-//    var messageLists = [MessageLists]()
-//    var messageListClass: MessageListClass!
+    /*1*/
     let coreDate = CoreDataStack()
-
-    //let messageService = MultiPeerCommunicator()
-    //слияние газпрома и роснефти прошло успешно
-    //а евро тем временем в инвестициях = 72.55
-
     let messageServiceType = "tinkoff-chat"
     let discoveryInfo = ["userName": UIDevice.current.name + " DmitryPyatin"]
     var myPeerId: MCPeerID!
@@ -35,36 +25,13 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
     var serviceAdvertiser: MCNearbyServiceAdvertiser!
     var serviceBrowser: MCNearbyServiceBrowser!
     
-    
-    var fetchedResultsController:NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
-        let sortDescriptor = NSSortDescriptor(key: "isOnline", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: "isOnline", cacheName: nil)
-        return fetchedResultsController
-    }()
-    
-    
+    var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Conversation", keyForSort: "isOnline", sectionName: "isOnline")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "isOnline", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        let frc = NSFetchedResultsController(fetchRequest: request, managedObjectContext: coreDate.mainContext,  sectionNameKeyPath: "isOnline",
-            cacheName: nil)
-        frc.delegate = self
-        try! frc.performFetch()
-        let conversation = frc.fetchedObjects
-        
-        print(conversation![0].recieveID)
-
         
         
-        //messageService.delegate = self
-        fetchedResultsController.delegate = self
-        
+        //fetchedResultsController.delegate = self
         myPeerId = MCPeerID(displayName: UIDevice.current.name + " DmitryPyatin")
 
         //Делаем устройство видимым для других
@@ -85,7 +52,7 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
-        loadData()
+        
     }
 
     deinit {
@@ -96,8 +63,9 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
     override func viewDidAppear(_ animated: Bool) {
         session.delegate = self
         navBarBtnSetup()
+        loadData()
     }
-
+    
     func navBarBtnSetup() {
 
         let model = coreDate.managedObjectModel
@@ -122,25 +90,13 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
                 self.navigationItem.rightBarButtonItem = barButton
             }
         }
-
     }
 
     @objc func pressAction() {
         self.navigationController?.popToRootViewController(animated: true)
         performSegue(withIdentifier: "ShowDetailsProfile", sender: self)
     }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("controllerWillChangeContentcontrollerWillChangeContent")
-        self.tableView.beginUpdates()
-    }
-
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("controllerDidChangeContent")
-        self.tableView.endUpdates()
-    }
 }
-
 
 extension ConversationsListViewController: UITableViewDelegate {
     //core data
@@ -149,15 +105,40 @@ extension ConversationsListViewController: UITableViewDelegate {
     }
 //
     func numberOfSections(in tableView: UITableView) -> Int {
-        if let sections = fetchedResultsController.sections {
+        if let sections = self.fetchedResultsController.sections {
             return sections.count
         } else {
             return 0
         }
     }
+    
+    private func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == .delete {
+//            print("DELETE INDEX PATH")
+//
+//            let managedObject = fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
+//            coreDate.masterContext.delete(managedObject)
+//            try? self.coreDate.masterContext.save()
+//            self.tableView.isEditing = false
+//            self.loadData()
+//        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    
+    func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    
 }
 
-extension ConversationsListViewController: UITableViewDataSource {
+extension ConversationsListViewController: UITableViewDataSource  {
+    
+    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -169,6 +150,7 @@ extension ConversationsListViewController: UITableViewDataSource {
 
         //_ = self.navigationController?.popToRootViewController(animated: true)
         //performSegue(withIdentifier: "showDetails", sender: self)
+        tableView.isEditing = true
     }
 
     //подготовка данных для пересылки во вьюконтроллер
@@ -183,23 +165,16 @@ extension ConversationsListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        //    return section == 0 ? conversationListsOnline.count : conversationListsHistory.count
-        
-        guard let sections = self.fetchedResultsController.sections else {
-            fatalError("No sections in fetchedResultsController")
+        /*2*/      
+        if let sections = fetchedResultsController.sections {
+            //print("fetchedResultsController.sections!!",sections[section].name)
+            return sections[section].numberOfObjects
+        } else {
+            return 0
         }
-        let sectionInfo = sections[section]
-        return sectionInfo.numberOfObjects
-        
-        
-//        if let sections = fetchedResultsController.sections {
-//            print("fetchedResultsController.sections!!",sections[section].name)
-//            return sections[section].numberOfObjects
-//        } else {
-//            return 0
-//        }
-        
     }
+    
+
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -228,67 +203,78 @@ extension ConversationsListViewController: UITableViewDataSource {
 //        }
 //        return UITableViewCell()
         
-//        let conversation = fetchedResultsController.object(at: indexPath) as! Conversation
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//        cell.textLabel?.text = conversation.recieveID
-//        cell.detailTextLabel?.text = conversation.conversationID
-//        return cell
-        
-        //from lesson
+        let conversation = fetchedResultsController.object(at: indexPath) as! Conversation
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let conversation = self.fetchedResultsController.object(at: indexPath) as! Conversation
-        cell.textLabel?.text = conversation.recieveID
+        cell.textLabel?.text = conversation.conversationID
+        cell.detailTextLabel?.text = conversation.conversationID
         return cell
         
-        
     }
+    
+  
 
     func loadData() {
-        print(Thread.current)
-//        conversationLists.removeAll()
-//        conversationListsOnline.removeAll()
-//        conversationListsHistory.removeAll()
-
-        
-//        do {
-//            //try self.fetchedResultsController.performFetch()
-//
-//        } catch {
-//            print(error)
-//        }
-        try! fetchedResultsController.performFetch()
-        
+        print("loaddata", Thread.current)
+        /*3*/
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
         DispatchQueue.main.async {
             self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
             self.tableView.reloadData()
         }
- 
-        /*
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        
-        
-        let item = ConversationList(name: "Вася", message: "Привет, как дела?", date: dateFormatter.date(from: "2019-01-01 01:11:01"), online: false, hasUnreadMessage: true)
-        conversationLists.append(item)
-
-        for i in conversationLists {
-            if i.online {
-                conversationListsOnline.append(i)
-            } else {
-                conversationListsHistory.append(i)
-            }
-
-        } */
+        /*4*/
     }
 
     override func viewWillAppear(_ animated: Bool) {
         do {
-            //try fetchedResultsController.performFetch()
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
         }
         self.tableView.reloadData()
+    }
+    
+    // MARK: - Fetched Results Controller Delegate
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+    
+    
+    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .insert:
+            if let indexPath = newIndexPath {
+                tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+            print("INSERT NEW VALUE")
+        case .update:
+            if let indexPath = indexPath {
+                let conversation = fetchedResultsController.object(at: indexPath as IndexPath) as! Conversation
+                let cell = tableView.cellForRow(at: indexPath as IndexPath)
+                cell!.textLabel?.text = conversation.conversationID
+            }
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("controllerDidChangeContent")
+        tableView.endUpdates()
     }
 }
 
@@ -330,14 +316,8 @@ extension ConversationsListViewController: MCNearbyServiceBrowserDelegate {
     //кто то пропал
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("потеряли участника: \(peerID)")
-
-//        if let index = conversationListsOnline.firstIndex(where: { $0.name == peerID.displayName }) {
-//            conversationListsHistory.append(conversationListsOnline[index])
-//            conversationListsOnline.remove(at: index)
-//        }
-
+        /*5*/
         do {
-            //try self.fetchedResultsController.performFetch()
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
@@ -360,40 +340,16 @@ extension ConversationsListViewController: MCSessionDelegate {
             fromUserPeer = peerID
             //добавим новый чат в коре дата
             coreDate.masterContext.perform {
-                print("записываем данные!!!!!!!")
-                //записываем данные
-                //_ = AppUser.insertAppUser(in: self.coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
+                print("записываем данные в conversation!!!!!!!")
                 _ = Conversation.insertNewConversation(in: self.coreDate.masterContext, recieveID: peerID.displayName, isOnline: true)
                 try? self.coreDate.masterContext.save()
-                //try! self.fetchedResultsController.performFetch()
-                try! self.fetchedResultsController.performFetch()
-                
             }
             
-
-//            if self.conversationListsOnline.contains(where: { $0.name == peerID.displayName }) {
-//                if indexHistory != nil { conversationListsHistory.remove(at: indexHistory!) }
-//            } else {
-//                if indexHistory != nil
-//                {
-//                    conversationListsOnline.append(conversationListsHistory[indexHistory!])
-//                    conversationListsHistory.remove(at: indexHistory!)
-//                } else {
-//                    let item = ConversationList(name: peerID.displayName, message: nil, date: Date(), online: true, hasUnreadMessage: true, peerID: peerID)
-//                self.conversationListsOnline.append(item)
-//
-//
-//
-//                }
-//            }
+            /*6*/
             print("Dispatch try! fetchedResultsController.performFetch()")
-            //try! self.fetchedResultsController.performFetch()
-            self.loadData()
-            
-//            DispatchQueue.main.async {
-//
-//                self.tableView.reloadData()
-//            }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                self.loadData()
+            }
         }
     }
 
@@ -406,18 +362,7 @@ extension ConversationsListViewController: MCSessionDelegate {
         } catch let error {
             print(error)
         }
-        //print(str)
-        //let index = conversationListsOnline.firstIndex(where: { $0.name == peerID.displayName })
-
-//        if str.count > 0 {
-//            //убираем из массива, чтобы видеть последнее сообщение
-//            self.conversationListsOnline.remove(at: index!)
-//            let itemMessage = MessageLists(text: str, fromUser: peerID.displayName, toUser: myPeerId.displayName )
-//            let item = ConversationList(name: peerID.displayName, message: str, date: Date(), online: true, hasUnreadMessage: true, peerID: peerID)
-//            self.messageLists.append(itemMessage)
-//            //self.messageListClass.saveDataToArray(text: str, fromUser: peerID.displayName, toUSer: myPeerId.displayName)
-//            self.conversationListsOnline.append(item)
-//        }
+        /*7*/
         DispatchQueue.main.async {
             //self.conversationListsOnline.sort(by: { $0.date!.compare($1.date!) == .orderedDescending })
             self.tableView.reloadData()
@@ -435,7 +380,6 @@ extension ConversationsListViewController: MCSessionDelegate {
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         print("didFinishReceivingResourceWithName")
     }
-
 }
 
 extension UIImage {
@@ -453,3 +397,118 @@ extension UIImage {
         return newImage!
     }
 }
+
+
+
+
+//сюда перенесем ненужный код
+
+
+/*1*/
+//    var conversationLists = [ConversationList]()
+//    var conversationListsOnline = [ConversationList]()
+//    var conversationListsHistory = [ConversationList]()
+//    var conversationData = [ConversationList]()
+//    var messageLists = [MessageLists]()
+//    var messageListClass: MessageListClass!
+
+//let messageService = MultiPeerCommunicator()
+//слияние газпрома и роснефти прошло успешно
+//а евро тем временем в инвестициях = 72.55
+
+/*2*/
+//    return section == 0 ? conversationListsOnline.count : conversationListsHistory.count
+
+/*3*/
+//        conversationLists.removeAll()
+//        conversationListsOnline.removeAll()
+//        conversationListsHistory.removeAll()
+
+
+/*4*/
+/*
+ let dateFormatter = DateFormatter()
+ dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+ 
+ 
+ let item = ConversationList(name: "Вася", message: "Привет, как дела?", date: dateFormatter.date(from: "2019-01-01 01:11:01"), online: false, hasUnreadMessage: true)
+ conversationLists.append(item)
+ 
+ for i in conversationLists {
+ if i.online {
+ conversationListsOnline.append(i)
+ } else {
+ conversationListsHistory.append(i)
+ }
+ 
+ } */
+/*5*/
+//        if let index = conversationListsOnline.firstIndex(where: { $0.name == peerID.displayName }) {
+//            conversationListsHistory.append(conversationListsOnline[index])
+//            conversationListsOnline.remove(at: index)
+//        }
+
+/*6*/
+//            if self.conversationListsOnline.contains(where: { $0.name == peerID.displayName }) {
+//                if indexHistory != nil { conversationListsHistory.remove(at: indexHistory!) }
+//            } else {
+//                if indexHistory != nil
+//                {
+//                    conversationListsOnline.append(conversationListsHistory[indexHistory!])
+//                    conversationListsHistory.remove(at: indexHistory!)
+//                } else {
+//                    let item = ConversationList(name: peerID.displayName, message: nil, date: Date(), online: true, hasUnreadMessage: true, peerID: peerID)
+//                self.conversationListsOnline.append(item)
+//
+//
+//
+//                }
+//            }
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+
+/*7*/
+//print(str)
+//let index = conversationListsOnline.firstIndex(where: { $0.name == peerID.displayName })
+
+//        if str.count > 0 {
+//            //убираем из массива, чтобы видеть последнее сообщение
+//            self.conversationListsOnline.remove(at: index!)
+//            let itemMessage = MessageLists(text: str, fromUser: peerID.displayName, toUser: myPeerId.displayName )
+//            let item = ConversationList(name: peerID.displayName, message: str, date: Date(), online: true, hasUnreadMessage: true, peerID: peerID)
+//            self.messageLists.append(itemMessage)
+//            //self.messageListClass.saveDataToArray(text: str, fromUser: peerID.displayName, toUSer: myPeerId.displayName)
+//            self.conversationListsOnline.append(item)
+//        }
+
+
+/*viewDidLoad*/
+
+
+//        let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+//        let sortDescriptor = NSSortDescriptor(key: "isOnline", ascending: true)
+//        request.sortDescriptors = [sortDescriptor]
+//        var fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: coreDate.mainContext,  sectionNameKeyPath: "isOnline",
+//                                         cacheName: nil) as! NSFetchedResultsController<NSFetchRequestResult>
+//        fetchedResultsController.delegate = self
+//        try! fetchedResultsController.performFetch()
+//        let conversation = fetchedResultsController.fetchedObjects
+//        print(conversation!)
+
+//messageService.delegate = self
+
+//      fetchedResultsController.delegate = self
+
+//        try! fetchedResultsController.performFetch()
+//        let conversation = fetchedResultsController.fetchedObjects
+//print(conversation)
+
+
+//    var fetchedResultsController:NSFetchedResultsController = { () -> NSFetchedResultsController<NSFetchRequestResult> in
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Conversation")
+//        let sortDescriptor = NSSortDescriptor(key: "isOnline", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
+//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: "isOnline", cacheName: nil)
+//        return fetchedResultsController
+//    }()

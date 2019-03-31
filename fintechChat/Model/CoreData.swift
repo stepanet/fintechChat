@@ -69,11 +69,11 @@ class CoreDataStack: NSObject {
     }()
     
     
-    func fetchedResultsController(entityName: String, keyForSort: String, sectionName: String) -> NSFetchedResultsController<NSFetchRequestResult> {
+    class func fetchedResultsController(entityName: String, keyForSort: String, sectionName: String) -> NSFetchedResultsController<NSFetchRequestResult> {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let sortDescriptor = NSSortDescriptor(key: keyForSort, ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
         return fetchedResultsController
     }
 
