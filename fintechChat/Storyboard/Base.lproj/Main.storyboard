@@ -72,8 +72,9 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="hFl-hU-M7d" id="lVI-rk-5ZK"/>
+                                    <outlet property="dataSource" destination="hFl-hU-M7d" id="Mdv-gJ-5Bq"/>
                                     <outlet property="delegate" destination="hFl-hU-M7d" id="AGt-gR-ntM"/>
+                                    <outlet property="prefetchDataSource" destination="hFl-hU-M7d" id="Jng-yo-eKp"/>
                                 </connections>
                             </tableView>
                         </subviews>

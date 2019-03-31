@@ -99,6 +99,8 @@ class ConversationsListViewController: UIViewController {
 }
 
 extension ConversationsListViewController: UITableViewDelegate {
+
+    
     //core data
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 1 ? "Online" : "History"
@@ -113,32 +115,43 @@ extension ConversationsListViewController: UITableViewDelegate {
     }
     
     private func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .delete {
-//            print("DELETE INDEX PATH")
-//
-//            let managedObject = fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
-//            coreDate.masterContext.delete(managedObject)
-//            try? self.coreDate.masterContext.save()
-//            self.tableView.isEditing = false
-//            self.loadData()
-//        }
+        print(#function)
+
     }
     
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        print(#function)
         return .delete
     }
     
-    
     func tableView(_ tableView: UITableView, shouldShowMenuForRowAt indexPath: IndexPath) -> Bool {
+        print(#function)
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        print(#function)
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("DELETE INDEX PATH")
+            
+            let managedObject = fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
+            print("managedObjectmanagedObjectmanagedObject", managedObject)
+            //CoreDataStack.mainContext.delete(managedObject) //   .delete(managedObject)
+            //try! self.CoreDataStack.mainContext.save()
+           // self.loadData()
+        }
     }
     
     
 }
 
 extension ConversationsListViewController: UITableViewDataSource  {
-    
-    
+
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
@@ -150,7 +163,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
 
         //_ = self.navigationController?.popToRootViewController(animated: true)
         //performSegue(withIdentifier: "showDetails", sender: self)
-        tableView.isEditing = true
+        //tableView.isEditing = true
     }
 
     //подготовка данных для пересылки во вьюконтроллер
