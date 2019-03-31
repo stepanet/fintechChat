@@ -14,7 +14,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     var conversationData = [ConversationList]()
     var messageLists = [MessageLists]()
     var messageListClass: MessageListClass!
+    var conversation: Conversation?
     var session: MCSession!
+    var peerID: MCPeerID!
 
     @IBOutlet weak var messageTxtField: UITextField!
     @IBOutlet weak var sendMessageBtn: UIButton!
@@ -23,11 +25,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Reading object
+        print(conversation)
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
 
-        self.navigationItem.title = conversationData[0].peerID.displayName
+        //self.navigationItem.title = conversationData[0].peerID.displayName
+        self.navigationItem.title = conversation?.recieveID
         session.delegate = self
         messageTxtField.delegate = self
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
@@ -44,9 +50,10 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         if (messageTxtField.text?.count)! > 0 {
 
             //добавим сообщение в массив
-            addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
+//            addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
+            self.addDataToArrayMsg(text: messageTxtField.text!, fromUser: session.myPeerID.displayName, toUser: self.conversation?.recieveID ?? "")
             //отошлем пиру
-            sendText(text: messageTxtField.text!, peerID: conversationData[0].peerID)
+            sendText(text: messageTxtField.text!, peerID: peerID)
             messageTxtField.resignFirstResponder()
             updateTable()
         }
@@ -75,7 +82,7 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
             print("can not encode data")
         }
            DispatchQueue.main.async {
-                self.addDataToArrayMsg(text: str, fromUser: self.conversationData[0].peerID.displayName, toUser: self.session.myPeerID.displayName)
+            self.addDataToArrayMsg(text: str, fromUser: session.myPeerID.displayName, toUser: self.conversation?.recieveID ?? "")
                     self.updateTable()
             }
     }
@@ -102,27 +109,34 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if (messageLists[indexPath.row].toUser == session.myPeerID.displayName ) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
-            let text = messageLists[indexPath.row].text
-            cell!.messageText.text = text
-            return cell!
-        } else if (messageLists[indexPath.row].toUser != session.myPeerID.displayName ) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
-            let text = messageLists[indexPath.row].text
-            cell?.messageText.text = text
-            return cell!
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
-            let text = messageLists[indexPath.row].text
-            cell?.messageText.text = text
-            return cell!
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
+        let text = messageLists[indexPath.row].text
+        cell!.messageText.text = text
+        return cell!
+        
+//        if (messageLists[indexPath.row].toUser == session.myPeerID.displayName ) {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
+//            let text = messageLists[indexPath.row].text
+//            cell!.messageText.text = text
+//            return cell!
+//        } else if (messageLists[indexPath.row].toUser != session.myPeerID.displayName ) {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
+//            let text = messageLists[indexPath.row].text
+//            cell?.messageText.text = text
+//            return cell!
+//        } else {
+//            print("печатаем ячейку")
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
+//            let text = messageLists[indexPath.row].text
+//            cell?.messageText.text = text
+//            return cell!
+//        }
     }
 
     func addDataToArrayMsg(text: String, fromUser: String, toUser: String) {
         //добавим сообщение в массив
         let item = MessageLists(text: text, fromUser: fromUser, toUser: toUser )
+        print(item)
         messageLists.append(item)
     }
 

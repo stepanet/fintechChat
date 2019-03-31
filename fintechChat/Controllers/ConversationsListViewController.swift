@@ -31,7 +31,7 @@ class ConversationsListViewController: UIViewController {
         super.viewDidLoad()
         
         
-        //fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
         myPeerId = MCPeerID(displayName: UIDevice.current.name + " DmitryPyatin")
 
         //Делаем устройство видимым для других
@@ -99,8 +99,6 @@ class ConversationsListViewController: UIViewController {
 }
 
 extension ConversationsListViewController: UITableViewDelegate {
-
-    
     //core data
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 1 ? "Online" : "History"
@@ -141,13 +139,8 @@ extension ConversationsListViewController: UITableViewDelegate {
             
             let managedObject = fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
             print("managedObjectmanagedObjectmanagedObject", managedObject)
-            //CoreDataStack.mainContext.delete(managedObject) //   .delete(managedObject)
-            //try! self.CoreDataStack.mainContext.save()
-           // self.loadData()
         }
     }
-    
-    
 }
 
 extension ConversationsListViewController: UITableViewDataSource  {
@@ -164,15 +157,26 @@ extension ConversationsListViewController: UITableViewDataSource  {
         //_ = self.navigationController?.popToRootViewController(animated: true)
         //performSegue(withIdentifier: "showDetails", sender: self)
         //tableView.isEditing = true
+        
+        let message = fetchedResultsController.object(at: indexPath) as? Conversation
+        print("fetchedResultsController", message)
+        performSegue(withIdentifier: "showDetails", sender: message)
     }
 
     //подготовка данных для пересылки во вьюконтроллер
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? ConversationViewController {
-            destination.session = session
-            //destination.conversationData = conversationData
-            //destination.messageLists = messageLists
-            //destination.messageListClass = messageListClass
+//        if let destination = segue.destination as? ConversationViewController {
+//            destination.session = session
+//            //destination.conversationData = conversationData
+//            //destination.messageLists = messageLists
+//            //destination.messageListClass = messageListClass
+//        }
+        
+    if segue.identifier == "showDetails" {
+        let controller = segue.destination as! ConversationViewController
+        controller.conversation = sender as? Conversation
+        controller.session = session
+        controller.peerID = fromUserPeer
         }
     }
 

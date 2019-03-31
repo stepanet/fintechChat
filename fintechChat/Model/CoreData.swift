@@ -76,7 +76,6 @@ class CoreDataStack: NSObject {
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
         return fetchedResultsController
     }
-
 }
 
 extension Conversation {
