@@ -33,7 +33,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         tableView.estimatedRowHeight = 60
 
         //self.navigationItem.title = conversationData[0].peerID.displayName
-        self.navigationItem.title = conversation?.recieveID
+        self.navigationItem.title = conversation?.userid
         session.delegate = self
         messageTxtField.delegate = self
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
@@ -51,9 +51,17 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
             //добавим сообщение в массив
 //            addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
-            self.addDataToArrayMsg(text: messageTxtField.text!, fromUser: session.myPeerID.displayName, toUser: self.conversation?.recieveID ?? "")
+            self.addDataToArrayMsg(text: messageTxtField.text!, fromUser: session.myPeerID.displayName, toUser: self.conversation?.userid ?? "")
             //отошлем пиру
-            sendText(text: messageTxtField.text!, peerID: peerID)
+            if peerID != nil {
+                self.sendText(text: messageTxtField.text!, peerID: peerID)
+            } else {
+                let alertController = UIAlertController(title: "DER KATASTROFA", message: "PEER OTVALIL", preferredStyle: .alert)
+                let actionSave = UIAlertAction(title: "ОК", style: .default) { (_) in
+                }
+                alertController.addAction(actionSave)
+                self.present(alertController, animated: true, completion: nil)
+            }
             messageTxtField.resignFirstResponder()
             updateTable()
         }
@@ -82,7 +90,7 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
             print("can not encode data")
         }
            DispatchQueue.main.async {
-            self.addDataToArrayMsg(text: str, fromUser: session.myPeerID.displayName, toUser: self.conversation?.recieveID ?? "")
+            self.addDataToArrayMsg(text: str, fromUser: session.myPeerID.displayName, toUser: self.conversation?.userid ?? "")
                     self.updateTable()
             }
     }

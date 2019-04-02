@@ -52,7 +52,6 @@ class ConversationsListViewController: UIViewController {
 
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44
-        
     }
 
     deinit {
@@ -101,9 +100,9 @@ class ConversationsListViewController: UIViewController {
 extension ConversationsListViewController: UITableViewDelegate {
     //core data
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 1 ? "Online" : "History"
+        return section == 0 ? "History" : "Online"
     }
-//
+
     func numberOfSections(in tableView: UITableView) -> Int {
         if let sections = self.fetchedResultsController.sections {
             return sections.count
@@ -114,7 +113,6 @@ extension ConversationsListViewController: UITableViewDelegate {
     
     private func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         print(#function)
-
     }
     
     
@@ -144,34 +142,43 @@ extension ConversationsListViewController: UITableViewDelegate {
 }
 
 extension ConversationsListViewController: UITableViewDataSource  {
-
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-//        if indexPath.section == 0 {
-//            conversationData = [conversationListsOnline[indexPath.row]]
-//        } else {
-//            conversationData = [conversationListsHistory[indexPath.row]]
+        let message = fetchedResultsController.object(at: indexPath) as? Conversation
+        
+        //        let result = CoreDataStack.reqPredicate(nameFilter: "userid", filter: "j@ckSp@rrow DmitryPyatin1")
+        //        print(result)
+        
+        performSegue(withIdentifier: "showDetails", sender: message)
+ 
+      
+//похулиганим с реквестами
+//        let request = coreDate.managedObjectModel.fetchRequestTemplate(forName: "Conversation") as! NSFetchRequest<Conversation>
+//        coreDate.mainContext.perform {
+//            let result =  try? self.coreDate.mainContext.fetch(request)
+//            print(result)
 //        }
 
-        //_ = self.navigationController?.popToRootViewController(animated: true)
-        //performSegue(withIdentifier: "showDetails", sender: self)
-        //tableView.isEditing = true
-        
-        let message = fetchedResultsController.object(at: indexPath) as? Conversation
-        print("fetchedResultsController", message)
-        performSegue(withIdentifier: "showDetails", sender: message)
+//рабочий запрос
+//        let request1: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+//        //var predicate: NSPredicate?
+//        request1.predicate = NSPredicate(format: "userid == %@", "j@ckSp@rrow DmitryPyatin")
+//        request1.fetchBatchSize = 12
+//        request1.returnsObjectsAsFaults = false
+//        coreDate.mainContext.perform {
+//            let result1 =  try? self.coreDate.mainContext.fetch(request1)
+//            print(result1?.count)
+//        }
+//работает
+//        let result = CoreDataStack.reqPredicate(nameFilter: "userid", filter: "j@ckSp@rrow DmitryPyatin1")
+//        print(result)
+    
     }
 
     //подготовка данных для пересылки во вьюконтроллер
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destination = segue.destination as? ConversationViewController {
-//            destination.session = session
-//            //destination.conversationData = conversationData
-//            //destination.messageLists = messageLists
-//            //destination.messageListClass = messageListClass
-//        }
-        
+
     if segue.identifier == "showDetails" {
         let controller = segue.destination as! ConversationViewController
         controller.conversation = sender as? Conversation
@@ -184,48 +191,18 @@ extension ConversationsListViewController: UITableViewDataSource  {
         
         /*2*/      
         if let sections = fetchedResultsController.sections {
-            //print("fetchedResultsController.sections!!",sections[section].name)
             return sections[section].numberOfObjects
         } else {
             return 0
         }
     }
-    
-
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ConversationTableViewCell {
-//
-//            switch indexPath.section {
-//            case 0:
-//                let itemCellOnline = conversationListsOnline[indexPath.row]
-//                cell.nameLbl.textColor = ThemeManager.currentTheme().subtitleTextColor
-//                cell.messageLbl.textColor = ThemeManager.currentTheme().subtitleTextColor
-//                cell.dateLbl.textColor = ThemeManager.currentTheme().subtitleTextColor
-//                cell.backgroundColor = UIColor(named: "littelYellow")
-//                cell.dataCell(itemCellOnline)
-//            case 1:
-//                let itemCellHistory = conversationListsHistory[indexPath.row]
-//                cell.backgroundColor = ThemeManager.currentTheme().backgroundColor
-//                cell.nameLbl.textColor = ThemeManager.currentTheme().titleTextColor
-//                cell.messageLbl.textColor = ThemeManager.currentTheme().titleTextColor
-//                cell.dateLbl.textColor = ThemeManager.currentTheme().titleTextColor
-//                cell.dataCell(itemCellHistory)
-//            default:
-//                break
-//            }
-//
-//            return cell
-//        }
-//        return UITableViewCell()
-        
         let conversation = fetchedResultsController.object(at: indexPath) as! Conversation
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = conversation.conversationID
+        cell.textLabel?.text = conversation.userid
         cell.detailTextLabel?.text = conversation.conversationID
         return cell
-        
     }
     
   
@@ -254,14 +231,13 @@ extension ConversationsListViewController: UITableViewDataSource  {
         self.tableView.reloadData()
     }
     
-    // MARK: - Fetched Results Controller Delegate
     
+    //НЕ РАБОТАЕТ!!!  методы не вызываются. почему то
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("controllerWillChangeContent")
         tableView.beginUpdates()
     }
-    
-    
+
     func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .insert:
@@ -342,9 +318,7 @@ extension ConversationsListViewController: MCNearbyServiceBrowserDelegate {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-
     }
-
 }
 
 extension ConversationsListViewController: MCSessionDelegate {
@@ -355,16 +329,32 @@ extension ConversationsListViewController: MCSessionDelegate {
         if state.rawValue == 2 {
             print("участник \(peerID) изменил состояние: \(state.rawValue)")
             fromUserPeer = peerID
-            //добавим новый чат в коре дата
-            coreDate.masterContext.perform {
-                print("записываем данные в conversation!!!!!!!")
-                _ = Conversation.insertNewConversation(in: self.coreDate.masterContext, recieveID: peerID.displayName, isOnline: true)
-                try? self.coreDate.masterContext.save()
+            
+            
+            //добавим новый чат в коре дата если чата с таким пользователем еще нет
+            //проверим записи в кор дата с пользователем
+            //не получилось сделать функцию, которая возвращает число записей с таким пользователем :(
+            //этот запрос надо перенести в метод insertNewConversation
+            let request1: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+            request1.predicate = NSPredicate(format: "userid == %@", "\(peerID.displayName)")
+            request1.fetchBatchSize = 12
+            request1.returnsObjectsAsFaults = false
+            coreDate.mainContext.perform {
+                let result =  try! self.coreDate.mainContext.fetch(request1)
+//            запрос не нашел пользователя в бд. надо записать такого
+            if result.count == 0 {
+                self.coreDate.masterContext.perform {
+                    print("записываем данные в conversation!!!!!!!")
+                    _ = Conversation.insertNewConversation(in: self.coreDate.masterContext, recieveID: peerID.displayName, isOnline: true)
+                    try? self.coreDate.masterContext.save()
+                }
             }
+    }
             
             /*6*/
+            //обновим список чатов
             print("Dispatch try! fetchedResultsController.performFetch()")
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 self.loadData()
             }
         }
@@ -529,3 +519,56 @@ extension UIImage {
 //        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: "isOnline", cacheName: nil)
 //        return fetchedResultsController
 //    }()
+
+
+
+
+/*didSelectRowAt*/
+//        if indexPath.section == 0 {
+//            conversationData = [conversationListsOnline[indexPath.row]]
+//        } else {
+//            conversationData = [conversationListsHistory[indexPath.row]]
+//        }
+
+//_ = self.navigationController?.popToRootViewController(animated: true)
+//performSegue(withIdentifier: "showDetails", sender: self)
+//tableView.isEditing = true
+
+
+
+
+/*cellForRowAt*/
+//        if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? ConversationTableViewCell {
+//
+//            switch indexPath.section {
+//            case 0:
+//                let itemCellOnline = conversationListsOnline[indexPath.row]
+//                cell.nameLbl.textColor = ThemeManager.currentTheme().subtitleTextColor
+//                cell.messageLbl.textColor = ThemeManager.currentTheme().subtitleTextColor
+//                cell.dateLbl.textColor = ThemeManager.currentTheme().subtitleTextColor
+//                cell.backgroundColor = UIColor(named: "littelYellow")
+//                cell.dataCell(itemCellOnline)
+//            case 1:
+//                let itemCellHistory = conversationListsHistory[indexPath.row]
+//                cell.backgroundColor = ThemeManager.currentTheme().backgroundColor
+//                cell.nameLbl.textColor = ThemeManager.currentTheme().titleTextColor
+//                cell.messageLbl.textColor = ThemeManager.currentTheme().titleTextColor
+//                cell.dateLbl.textColor = ThemeManager.currentTheme().titleTextColor
+//                cell.dataCell(itemCellHistory)
+//            default:
+//                break
+//            }
+//
+//            return cell
+//        }
+//        return UITableViewCell()
+
+
+/*segue*/
+//        if let destination = segue.destination as? ConversationViewController {
+//            destination.session = session
+//            //destination.conversationData = conversationData
+//            //destination.messageLists = messageLists
+//            //destination.messageListClass = messageListClass
+//        }
+

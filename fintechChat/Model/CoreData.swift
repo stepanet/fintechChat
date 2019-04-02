@@ -76,6 +76,23 @@ class CoreDataStack: NSObject {
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
         return fetchedResultsController
     }
+    
+    //не получается
+//    class func reqPredicate(nameFilter: String, filter: String) -> NSFetchRequest<NSFetchRequestResult>? { //NSFetchRequest<NSFetchRequestResult> {
+//
+//        let request1: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+//        //var predicate: NSPredicate?
+//        request1.predicate = NSPredicate(format: "\(nameFilter) == %@", "\(filter)")
+//        request1.fetchBatchSize = 12
+//        request1.returnsObjectsAsFaults = false
+////            let result =  try! CoreDataStack().mainContext.fetch(request1)
+//
+//        guard let fetchRequest = try! CoreDataStack().mainContext.fetch(request1) else {
+//            assert(false, "No template")
+//            return nil
+//        }
+//        return fetchRequest
+//    }
 }
 
 extension Conversation {
@@ -83,11 +100,24 @@ extension Conversation {
         
         guard let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation", into: context) as? Conversation else { return nil }
         
-        conversation.recieveID = recieveID
+        conversation.userid = recieveID
         conversation.isOnline = isOnline
         conversation.conversationID = UUID().uuidString
         conversation.systemID = UUID().uuidString
         return conversation
+    }
+    
+    static func fetchRequest(model: NSManagedObjectModel, templateName: String) -> NSFetchRequest<Conversation>? {
+        
+        let templateName = templateName //"AppUser"
+        
+        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Conversation> else {
+            assert(false, "No template")
+            return nil
+        }
+        fetchRequest.fetchBatchSize = 12
+        fetchRequest.returnsObjectsAsFaults = false
+        return fetchRequest
     }
 }
 
