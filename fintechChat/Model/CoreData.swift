@@ -157,3 +157,19 @@ extension AppUser {
         }
     }
 }
+
+
+extension Message {
+    static func insertNewMessage(in context: NSManagedObjectContext, conversationID: String, text: String, recieveID: String, senderID: String) -> Message? {
+        
+        guard let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as? Message else { return nil }
+        
+        message.conversationID = conversationID
+        message.text = text
+        message.timestamp = Date().addingTimeInterval(NSTimeIntervalSince1970)
+        message.recieveID = recieveID
+        message.senderID = senderID
+        message.messageID = UUID().uuidString
+        return message
+    }
+}

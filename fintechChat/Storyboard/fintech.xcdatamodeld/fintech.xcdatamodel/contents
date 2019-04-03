@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18D109" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
         <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
@@ -18,7 +18,6 @@
         <attribute name="messageID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recieveID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="senderID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="systemID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="conversations" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
@@ -28,6 +27,6 @@
     <elements>
         <element name="AppUser" positionX="-818.40234375" positionY="-195.30859375" width="128" height="105"/>
         <element name="Conversation" positionX="-941.82421875" positionY="-7.03125" width="128" height="118"/>
-        <element name="Message" positionX="-619.63671875" positionY="-63.09765625" width="128" height="163"/>
+        <element name="Message" positionX="-619.63671875" positionY="-63.09765625" width="128" height="150"/>
     </elements>
 </model>
