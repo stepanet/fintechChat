@@ -27,8 +27,6 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         // Reading object
-        print(conversation)
-
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
 

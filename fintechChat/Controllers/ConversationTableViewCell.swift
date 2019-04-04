@@ -29,35 +29,31 @@ class ConversationTableViewCell: UITableViewCell {
     
    public func dataCell(_ conversationLists: ConversationCellConfiguration) {
 
-        nameLbl.text = conversationLists.name
+ //       nameLbl.text = conversationLists.name
 
-        if let second = conversationLists.date?.timeIntervalSince1970 {
-            let timestampDate = Date(timeIntervalSince1970: second)
-            let dateFormatter = DateFormatter()
-
-            if ConversationTableViewCell.daysBetween(start: Date(), end: conversationLists.date!) < 0 {
-                dateFormatter.dateFormat = "dd MMM"
-            } else {
-                dateFormatter.dateFormat = "HH:mm"
-            }
-            dateLbl.text = dateFormatter.string(from: timestampDate as Date)
-        }
-
-        if conversationLists.hasUnreadMessage {
-            messageLbl.font = UIFont.boldSystemFont(ofSize: 17)
-        }
-
-        if conversationLists.message == nil {
-            messageLbl.text = "No messages yet"
-            messageLbl.textColor = .gray
-            messageLbl.font = UIFont.init(name: "HelveticaNeue-Thin", size: 14)
-        } else {
-            messageLbl.text = conversationLists.message
-        }
+//        if let second = conversationLists.date?.timeIntervalSince1970 {
+//            let timestampDate = Date(timeIntervalSince1970: second)
+//            let dateFormatter = DateFormatter()
+//
+//            if ConversationTableViewCell.daysBetween(start: Date(), end: conversationLists.date!) < 0 {
+//                dateFormatter.dateFormat = "dd MMM"
+//            } else {
+//                dateFormatter.dateFormat = "HH:mm"
+//            }
+//            dateLbl.text = dateFormatter.string(from: timestampDate as Date)
+//        }
+//
+//        if conversationLists.hasUnreadMessage {
+//            messageLbl.font = UIFont.boldSystemFont(ofSize: 17)
+//        }
+//
+//        if conversationLists.message == nil {
+//            messageLbl.text = "No messages yet"
+//            messageLbl.textColor = .gray
+//            messageLbl.font = UIFont.init(name: "HelveticaNeue-Thin", size: 14)
+//        } else {
+//            messageLbl.text = conversationLists.message
+//        }
+//    }
     }
-
-    public static func daysBetween(start: Date, end: Date) -> Int {
-        return Calendar.current.dateComponents([.day], from: start, to: end).day!
-    }
-
 }
