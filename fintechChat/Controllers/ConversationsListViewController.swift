@@ -10,7 +10,7 @@ import UIKit
 import MultipeerConnectivity
 import CoreData
 
-class ConversationsListViewController: UIViewController {
+class ConversationsListViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet var tableView: UITableView!
 
@@ -31,7 +31,7 @@ class ConversationsListViewController: UIViewController {
         super.viewDidLoad()
         
         
-        fetchedResultsController.delegate = self as? NSFetchedResultsControllerDelegate
+        fetchedResultsController.delegate = self //as? NSFetchedResultsControllerDelegate
         myPeerId = MCPeerID(displayName: UIDevice.current.name + " DmitryPyatin")
 
         //Делаем устройство видимым для других
@@ -206,7 +206,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
         }
         DispatchQueue.main.async {
             self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
-            self.tableView.reloadData()
+            //self.tableView.reloadData()
         }
     }
 
@@ -216,7 +216,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
         } catch {
             print(error)
         }
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
     }
     
     
@@ -302,9 +302,9 @@ extension ConversationsListViewController: MCNearbyServiceBrowserDelegate {
         } catch {
             print(error)
         }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
     }
 }
 
@@ -367,9 +367,9 @@ extension ConversationsListViewController: MCSessionDelegate {
             } catch {
                 print(error)
             }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -382,21 +382,5 @@ extension ConversationsListViewController: MCSessionDelegate {
 
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         print("didFinishReceivingResourceWithName")
-    }
-}
-
-extension UIImage {
-    func resizeImage(targetSize: CGSize) -> UIImage {
-        let size = self.size
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-        let newSize = widthRatio > heightRatio ?  CGSize(width: size.width * heightRatio, height: size.height * heightRatio) : CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        self.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
     }
 }
