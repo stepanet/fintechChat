@@ -25,7 +25,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
     
-    let coreDate = CoreDataStack()
+    let coreDate = CoreDataStack.shared
 
     enum ImageSource {
         case photoLibrary
@@ -247,7 +247,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             //записываем данные
             _ = AppUser.insertAppUser(in: self.coreDate.masterContext, name: text, timestamp: Date(), about: textAbout, image: imageData)
             try? self.coreDate.masterContext.save()
-
         }
         self.saveDataStart()
     }

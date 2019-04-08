@@ -11,6 +11,7 @@ import CoreData
 
 class CoreDataStack: NSObject {
     
+     static let shared = CoreDataStack()
 
     var storeUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -71,7 +72,7 @@ class CoreDataStack: NSObject {
     
     class func fetchedResultsController(entityName: String, keyForSort: String, sectionName: String) -> NSFetchedResultsController<NSFetchRequestResult> {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        let sortDescriptor = NSSortDescriptor(key: keyForSort, ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: keyForSort, ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
         return fetchedResultsController
@@ -114,6 +115,7 @@ extension AppUser {
 
         let request: NSFetchRequest<AppUser> = NSFetchRequest(entityName: "AppUser")
         let delete = NSBatchDeleteRequest(fetchRequest: (request as? NSFetchRequest<NSFetchRequestResult>)!)
+        print("coreDate", delete.resultType.rawValue)
 
         do {
             try context.execute(delete)

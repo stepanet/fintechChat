@@ -15,7 +15,7 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
     @IBOutlet var tableView: UITableView!
 
     /*1*/
-    let coreDate = CoreDataStack()
+    let coreDate = CoreDataStack.shared
     let messageServiceType = "tinkoff-chat"
     let discoveryInfo = ["userName": UIDevice.current.name + " DmitryPyatin"]
     var myPeerId: MCPeerID!
@@ -31,7 +31,8 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
         super.viewDidLoad()
         
         
-        fetchedResultsController.delegate = self //as? NSFetchedResultsControllerDelegate
+        fetchedResultsController.delegate = self
+        tableView.delegate = self
         myPeerId = MCPeerID(displayName: UIDevice.current.name + " DmitryPyatin")
 
         //Делаем устройство видимым для других
@@ -100,7 +101,7 @@ class ConversationsListViewController: UIViewController, NSFetchedResultsControl
 extension ConversationsListViewController: UITableViewDelegate {
     //core data
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? "History" : "Online"
+        return section == 0 ? "Online" : "History"
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -128,11 +129,6 @@ extension ConversationsListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         print(#function)
-        do {
-            try self.fetchedResultsController.performFetch()
-        } catch {
-            print(error)
-        }
         return true
     }
     
@@ -206,7 +202,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
         }
         DispatchQueue.main.async {
             self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
-            //self.tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
 
@@ -227,6 +223,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
     func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .insert:
+            print("insert controller")
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
             }
@@ -291,11 +288,32 @@ extension ConversationsListViewController: MCNearbyServiceBrowserDelegate {
     //кто то пропал
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("потеряли участника: \(peerID)")
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print(error)
+        let lostUserConnect = FetchRequestManager.shared.fetchConversationWithID(id: peerID.displayName)
+
+            do {
+                let result =  try CoreDataStack.shared.mainContext.fetch(lostUserConnect)
+                let objectUpdate = result[0] as! NSManagedObject
+                //print("objectUpdate",objectUpdate.conversationID)
+                //print(objectUpdate.isOnline)
+                objectUpdate.setValue(false, forKey: "isOnline")
+                objectUpdate.setValue("fFFFFFF", forKey: "userid")
+                objectUpdate.setValue("fFFFFFF", forKey: "conversationID")
+                //print(objectUpdate.isOnline)
+
+            } catch {
+                print("error")
+            }
+        
+        CoreDataStack.shared.mainContext.perform {
+            _ = try! CoreDataStack.shared.mainContext.save()
         }
+
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            print(error)
+//        }
+       // self.loadData()
     }
 }
 
@@ -353,11 +371,12 @@ extension ConversationsListViewController: MCSessionDelegate {
             _ = Message.insertNewMessage(in: self.coreDate.masterContext, conversationID: result.first!.conversationID!, text: str!, recieveID: self.myPeerId.displayName, senderID: peerID.displayName, msgID: msgId!)
             try? self.coreDate.masterContext.save()
         }
-            do {
-                try self.fetchedResultsController.performFetch()
-            } catch {
-                print(error)
-            }
+//            do {
+//                try self.fetchedResultsController.performFetch()
+//            } catch {
+//                print(error)
+//            }
+        self.loadData()
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
