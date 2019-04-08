@@ -185,5 +185,3 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
         return true
     }
 }
-
-// MARK: ЛУКЬЯНЕНКО - ЧЕРНОВИК

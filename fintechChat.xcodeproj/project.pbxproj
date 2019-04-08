@@ -141,8 +141,7 @@
 				3B5D9E972240DF560016338B /* Communicator.swift */,
 				3B5D9E952240DEA00016338B /* MessageType.swift */,
 				3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */,
-				3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */,
-				3BE216D52256B97D00EC8C98 /* OldCode.swift */,
+				3BDA42E0225A894A00836B97 /* OldCode */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -154,6 +153,15 @@
 				ABF2871F12CEF37AE9D26CBA /* Pods_fintechChat.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BDA42E0225A894A00836B97 /* OldCode */ = {
+			isa = PBXGroup;
+			children = (
+				3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */,
+				3BE216D52256B97D00EC8C98 /* OldCode.swift */,
+			);
+			path = OldCode;
 			sourceTree = "<group>";
 		};
 		3BE05EE222385A1A00CC1B36 /* Extention */ = {

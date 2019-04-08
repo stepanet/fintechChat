@@ -216,7 +216,6 @@ extension ConversationsListViewController: UITableViewDataSource  {
         } catch {
             print(error)
         }
-        //self.tableView.reloadData()
     }
     
     
@@ -285,10 +284,6 @@ extension ConversationsListViewController: MCNearbyServiceBrowserDelegate {
 
     //кого то нашли
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        print("нашли участника: \(peerID)")
-        print("пригласили участника: \(peerID)")
-        //зовем к себе
-
         //это пир кто к нам подключился
         browser.invitePeer(peerID, to: self.session, withContext: nil, timeout: 10)
     }
@@ -296,15 +291,11 @@ extension ConversationsListViewController: MCNearbyServiceBrowserDelegate {
     //кто то пропал
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         print("потеряли участника: \(peerID)")
-        /*5*/
         do {
             try fetchedResultsController.performFetch()
         } catch {
             print(error)
         }
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
     }
 }
 
@@ -367,9 +358,6 @@ extension ConversationsListViewController: MCSessionDelegate {
             } catch {
                 print(error)
             }
-//        DispatchQueue.main.async {
-//            self.tableView.reloadData()
-//        }
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
