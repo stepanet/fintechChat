@@ -11,11 +11,12 @@ import CoreData
 
 class CoreDataStack: NSObject {
     
-     static let shared = CoreDataStack()
+    static let shared = CoreDataStack()
+    
 
     var storeUrl: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        print(documentsURL)
+        //print(documentsURL)
         return documentsURL.appendingPathComponent("fintech.sqllite")
     }
 
@@ -69,12 +70,30 @@ class CoreDataStack: NSObject {
         return saveContext
     }()
     
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
     
-    class func fetchedResultsController(entityName: String, keyForSort: String, sectionName: String) -> NSFetchedResultsController<NSFetchRequestResult> {
+    func saveCdContext () {
+        if CoreDataStack.shared.mainContext.hasChanges {
+            do {
+                try CoreDataStack.shared.mainContext.save()
+            } catch {
+                let nserror = error as NSError
+                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                abort()
+            }
+        }
+    }
+
+    class func fetchedResultsController(entityName: String, keyForSort: String, sectionName: String?) -> NSFetchedResultsController<NSFetchRequestResult> {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let sortDescriptor = NSSortDescriptor(key: keyForSort, ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack().mainContext, sectionNameKeyPath: sectionName, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultsController
     }
 }
