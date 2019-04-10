@@ -177,3 +177,29 @@ import Foundation
 //            //destination.messageListClass = messageListClass
 //        }
 
+
+
+
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
+//        let text = "" //messageLists[indexPath.row].text
+//        cell!.messageText.text = text
+//        return cell!
+
+//        if (messageLists[indexPath.row].toUser == session.myPeerID.displayName ) {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
+//            let text = messageLists[indexPath.row].text
+//            cell!.messageText.text = text
+//            return cell!
+//        } else if (messageLists[indexPath.row].toUser != session.myPeerID.displayName ) {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
+//            let text = messageLists[indexPath.row].text
+//            cell?.messageText.text = text
+//            return cell!
+//        } else {
+//            print("печатаем ячейку")
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
+//            let text = messageLists[indexPath.row].text
+//            cell?.messageText.text = text
+//            return cell!
+//        }

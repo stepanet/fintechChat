@@ -497,7 +497,7 @@
 		};
 		3BEF8BD4220B73AE00641B2B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB7C06C6F43F41B989A7E77D /* Pods-fintechChat.debug.xcconfig */;
+			baseConfigurationReference = FA55C8423458FA85D73D2EDE /* Pods-fintechChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -523,7 +523,7 @@
 		};
 		3BEF8BD5220B73AE00641B2B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 80D410B8B60A506768F35222 /* Pods-fintechChat.release.xcconfig */;
+			baseConfigurationReference = F0190057E5ECEBDF1F7AB09F /* Pods-fintechChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

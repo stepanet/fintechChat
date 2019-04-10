@@ -25,13 +25,14 @@ class ConversationsListViewController: UIViewController,  NSFetchedResultsContro
     var serviceAdvertiser: MCNearbyServiceAdvertiser!
     var serviceBrowser: MCNearbyServiceBrowser!
     
-    var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Conversation", keyForSort: "isOnline", sectionName: nil)
+    var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Conversation", keyForSort: "isOnline", sectionName: "isOnline")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         fetchedResultsController.delegate = self
+        
         frc()
 
         myPeerId = MCPeerID(displayName: UIDevice.current.name + " DmitryPyatin")
@@ -109,25 +110,25 @@ class ConversationsListViewController: UIViewController,  NSFetchedResultsContro
 
 extension ConversationsListViewController: UITableViewDelegate {
     //core data
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return section == 0 ? "Online" : "History"
-//    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section == 0 ? "Online" : "History"
+    }
 
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        if let sections = self.fetchedResultsController.sections {
-//            return sections.count
-//        } else {
-//            return 0
-//        }
-//    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if let sections = self.fetchedResultsController.sections {
+            return sections.count
+        } else {
+            return 0
+        }
+    }
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-                let managedObject = self.fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
-                CoreDataStack.shared.mainContext.delete(managedObject)
-                CoreDataStack.shared.saveCdContext()
-        }
+//        if editingStyle == .delete {
+//                let managedObject = self.fetchedResultsController.object(at: indexPath as IndexPath) as! NSManagedObject
+//                CoreDataStack.shared.mainContext.delete(managedObject)
+//                CoreDataStack.shared.saveCdContext()
+//        }
     }
 }
 
@@ -150,7 +151,6 @@ extension ConversationsListViewController: UITableViewDataSource  {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        /*2*/      
         if let sections = fetchedResultsController.sections {
             return sections[section].numberOfObjects
         } else {
@@ -197,22 +197,19 @@ extension ConversationsListViewController: UITableViewDataSource  {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
     }
 
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("tableView.beginUpdates()")
+        print("controllerWillChangeContent")
         tableView.beginUpdates()
     }
 
     func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
         case .insert:
-            print("insert controller")
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath as IndexPath], with: .automatic)
             }
-            print("INSERT NEW VALUE")
         case .update:
             if let indexPath = indexPath {
                 let conversation = fetchedResultsController.object(at: indexPath as IndexPath) as! Conversation
@@ -295,7 +292,6 @@ extension ConversationsListViewController: MCSessionDelegate {
             fromUserPeer = peerID
             
             //добавим новый чат в коре дата если чата с таким пользователем еще нет
-
             let request = FetchRequestManager.shared.fetchConversationWithID(id: peerID.displayName)
             CoreDataStack.shared.mainContext.perform {
             do {
@@ -314,7 +310,7 @@ extension ConversationsListViewController: MCSessionDelegate {
             }
     }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                //self.frc()
+                self.frc()
             }
         }
     }
@@ -336,7 +332,6 @@ extension ConversationsListViewController: MCSessionDelegate {
         requestConvID.predicate = NSPredicate(format: "userid == %@", peerID.displayName)
         CoreDataStack.shared.masterContext.perform {
         let result =  try! CoreDataStack.shared.masterContext.fetch(requestConvID)
-        
             _ = Message.insertNewMessage(in: CoreDataStack.shared.masterContext, conversationID: result.first!.conversationID!, text: str!, recieveID: self.myPeerId.displayName, senderID: peerID.displayName, msgID: msgId!)
             try? CoreDataStack.shared.masterContext.save()
         }

@@ -8,15 +8,18 @@
 
 import UIKit
 import MultipeerConnectivity
+import CoreData
 
-class ConversationViewController: UIViewController, UITextFieldDelegate {
+class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetchedResultsControllerDelegate {
 
-    var conversationData = [ConversationList]()
-    var messageLists = [MessageLists]()
-    var messageListClass: MessageListClass!
     var conversation: Conversation?
+    var message: Message?
     var session: MCSession!
     var peerID: MCPeerID!
+
+    var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Message", keyForSort: "timestamp", sectionName: nil)
+    
+    //var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Conversation", keyForSort: "isOnline", sectionName: "isOnline", predicate: nil, id: nil)
 
     @IBOutlet weak var messageTxtField: UITextField!
     @IBOutlet weak var sendMessageBtn: UIButton!
@@ -30,7 +33,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60
 
-        //self.navigationItem.title = conversationData[0].peerID.displayName
+        fetchedResultsController.delegate = self
+        frc()
+        
         self.navigationItem.title = conversation?.userid
         session.delegate = self
         messageTxtField.delegate = self
@@ -40,15 +45,24 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
     }
     
     deinit {
-        print("Remove NotificationCenter Deinit")
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    func frc() {
+        do {
+            try self.fetchedResultsController.performFetch()
+        } catch {
+            print(error)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        moveMesageToFirst()
     }
 
     @IBAction func sendMsgActionBtn(_ sender: UIButton) {
         if (messageTxtField.text?.count)! > 0 {
 
-            //добавим сообщение в массив
-//            addDataToArrayMsg(text: messageTxtField.text!, fromUser: conversationData[0].peerID.displayName, toUser: session.myPeerID.displayName)
             self.addDataToArrayMsg(text: messageTxtField.text!, fromUser: session.myPeerID.displayName, toUser: self.conversation?.userid ?? "")
             //отошлем пиру
             if peerID != nil {
@@ -67,30 +81,107 @@ class ConversationViewController: UIViewController, UITextFieldDelegate {
 
     func updateTable() {
         tableView.reloadData()
-        if self.messageLists.count != 0 {
-            let indexPath = IndexPath(row: self.messageLists.count - 1, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        moveMesageToFirst()
+    }
+    
+    func moveMesageToFirst() {
+        let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
+        do {
+            let result =  try CoreDataStack().mainContext.fetch(requestMess)
+            if result.count != 0 {
+                let indexPath = IndexPath(row: result.count - 1, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+        } catch {
+            print("error")
         }
     }
 }
 
-extension ConversationViewController: UITableViewDelegate {
+
+extension ConversationViewController: UITableViewDataSource {
+   
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if let sections = fetchedResultsController.sections {
+//            return sections[section].numberOfObjects
+//        } else {
+//            return 0
+//        }
+        
+        let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
+        do {
+            let result =  try CoreDataStack().mainContext.fetch(requestMess)
+            return result.count
+        } catch {
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        //let messages = fetchedResultsController.object(at: indexPath) as! Message
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
+
+        let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
+        
+        do {
+                let result =  try CoreDataStack().mainContext.fetch(requestMess)
+            if result.count > 0 {
+                cell.messageText.text = result[indexPath.row].text
+            } else {
+              cell.messageText.text = ""
+            }
+            } catch {
+                    print(error)
+            }
+        return cell
+    }
 }
 
-extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        var str = ""
-        let jsonDecode = JSONDecoder()
-        do {
-             let msg = try jsonDecode.decode(MessageType.self, from: data)
-             str = msg.text
-        } catch {
-            print("can not encode data")
+
+extension ConversationViewController: UITableViewDelegate {
+    //core data
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Messages" //section == 0 ? "Online" : "History"
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if let sections = self.fetchedResultsController.sections {
+            return sections.count
+        } else {
+            return 0
         }
-           DispatchQueue.main.async {
-            self.addDataToArrayMsg(text: str, fromUser: session.myPeerID.displayName, toUser: self.conversation?.userid ?? "")
-                    self.updateTable()
-            }
+    }
+}
+
+extension ConversationViewController: MCSessionDelegate {
+   
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        
+        let jsonDecoder = JSONDecoder()
+        var str: String?
+        var msgId: String?
+        print("try save didReceiveData")
+        do {
+            let msg = try jsonDecoder.decode(MessageType.self, from: data)
+            str = msg.text
+            msgId = msg.messageId
+        } catch {
+            print(error)
+        }
+        
+        let requestConvID: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+        requestConvID.predicate = NSPredicate(format: "userid == %@", peerID.displayName)
+        CoreDataStack.shared.masterContext.perform {
+            let result =  try! CoreDataStack.shared.masterContext.fetch(requestConvID)
+            
+            _ = Message.insertNewMessage(in: CoreDataStack.shared.masterContext, conversationID: result.first!.conversationID!, text: str!, recieveID: session.myPeerID.displayName, senderID: peerID.displayName, msgID: msgId!)
+            try? CoreDataStack.shared.masterContext.save()
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.moveMesageToFirst()
+        }
     }
 
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
@@ -109,50 +200,30 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
         print(#function)
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageLists.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
-        let text = messageLists[indexPath.row].text
-        cell!.messageText.text = text
-        return cell!
-        
-//        if (messageLists[indexPath.row].toUser == session.myPeerID.displayName ) {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as? MessageTableViewCell
-//            let text = messageLists[indexPath.row].text
-//            cell!.messageText.text = text
-//            return cell!
-//        } else if (messageLists[indexPath.row].toUser != session.myPeerID.displayName ) {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
-//            let text = messageLists[indexPath.row].text
-//            cell?.messageText.text = text
-//            return cell!
-//        } else {
-//            print("печатаем ячейку")
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as? MessageTableViewCell
-//            let text = messageLists[indexPath.row].text
-//            cell?.messageText.text = text
-//            return cell!
-//        }
-    }
-
     func addDataToArrayMsg(text: String, fromUser: String, toUser: String) {
-        //добавим сообщение в массив
-        let item = MessageLists(text: text, fromUser: fromUser, toUser: toUser )
-        print(item)
-        messageLists.append(item)
+        //добавим сообщение в core data
+//задваивал
+//        var msgId: String?
+//        print("try save didReceiveData", self.conversation!.conversationID!)
+//        let msg = MessageType(text: text)
+//        msgId = msg.messageId
+//
+//        _ = Message.insertNewMessage(in: CoreDataStack.shared.mainContext, conversationID: self.conversation!.conversationID!, text: text+"2", recieveID: fromUser, senderID: toUser, msgID: msgId!)
+//            CoreDataStack.shared.saveCdContext()
+//
+//        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+//            self.tableView.reloadData()
+//        }
     }
 
     // MARK: отправим сообщение Пиру
     func sendText(text: String, peerID: MCPeerID) {
-        print(text)
         if session.connectedPeers.count > 0 {
             print("УРА УРА УРА что-то пошло ")
             let jsonEncoder = JSONEncoder()
             let msg = MessageType(text: text)
+            var msgId: String?
+            msgId = msg.messageId
             let jsonMessage = try? jsonEncoder.encode(msg)
 
             do {
@@ -160,13 +231,26 @@ extension ConversationViewController: UITableViewDataSource, MCSessionDelegate {
             } catch let error {
                 print("Ошибка отправки: \(error)")
             }
+            
+            let requestConvID: NSFetchRequest<Conversation> = Conversation.fetchRequest()
+            requestConvID.predicate = NSPredicate(format: "userid == %@", peerID.displayName)
+            CoreDataStack.shared.masterContext.perform {
+                let result =  try! CoreDataStack.shared.masterContext.fetch(requestConvID)
+                
+                _ = Message.insertNewMessage(in: CoreDataStack.shared.masterContext, conversationID: result.first!.conversationID!, text: text, recieveID: peerID.displayName, senderID: self.session.myPeerID.displayName, msgID: msgId!)
+                try? CoreDataStack.shared.masterContext.save()
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.moveMesageToFirst()
+            }
         }
+        
     }
 
     func keyboardSetup() {
         // Keyboard notifications:
-        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (_) in
-
+        NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (_) in 
             self.view.frame.origin.y = -350
             }
 

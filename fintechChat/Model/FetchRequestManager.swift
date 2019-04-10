@@ -28,6 +28,22 @@ class FetchRequestManager {
     func fetchConversationWithID(id: String) -> NSFetchRequest<Conversation>{
         let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.predicate = NSPredicate(format: "userid == %@", id)
+        request.fetchBatchSize = 25
+        request.returnsObjectsAsFaults = false
+        return request
+    }
+    
+    
+    func fetchMesasgeWithConversationID(id: String) -> NSFetchRequest<Message>{
+        let request: NSFetchRequest<Message> = Message.fetchRequest()
+        request.predicate = NSPredicate(format: "conversationID == %@", id)
+        request.fetchBatchSize = 25
+        request.returnsObjectsAsFaults = false
+        return request
+    }
+    
+    func fetchAllConversation() -> NSFetchRequest<Conversation>{
+        let request: NSFetchRequest<Conversation> = Conversation.fetchRequest()
         request.fetchBatchSize = 12
         request.returnsObjectsAsFaults = false
         return request
