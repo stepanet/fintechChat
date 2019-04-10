@@ -164,11 +164,9 @@ extension ConversationsListViewController: UITableViewDataSource  {
         
         var text: String?
         var datetxt: Date?
-
-        let requestMess = FetchRequestManager.shared.fetchLastMessageWithConversationId(conversationID: conversation.conversationID!)
-        
+        let requestMess = FetchRequestManager.shared.fetchLastMessageWithConversationId(conversationID: conversation.conversationID!, senderid: conversation.userid!)
         do {
-            let result =  try CoreDataStack().mainContext.fetch(requestMess)
+            let result =  try CoreDataStack.shared.mainContext.fetch(requestMess)
             text = result.first?.text
             datetxt = result.first?.timestamp
         } catch {
@@ -311,6 +309,7 @@ extension ConversationsListViewController: MCSessionDelegate {
     }
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
                 self.frc()
+                self.loadData()
             }
         }
     }

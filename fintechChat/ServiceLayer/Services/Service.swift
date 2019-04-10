@@ -18,7 +18,6 @@ class Service {
         let second = date.timeIntervalSince1970
         let timestampDate = Date(timeIntervalSince1970: second)
         let dateFormatter = DateFormatter()
-        print(Date(), date)
         if Service.daysBetween(start: Date(), end: date) < 0 {
             dateFormatter.dateFormat = "dd.MM"
         } else {

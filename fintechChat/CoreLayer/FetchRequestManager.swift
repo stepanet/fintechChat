@@ -15,10 +15,10 @@ class FetchRequestManager {
 
 
     //последнее сообщение
-    func fetchLastMessageWithConversationId(conversationID: String) -> NSFetchRequest<Message> {
+    func fetchLastMessageWithConversationId(conversationID: String, senderid: String) -> NSFetchRequest<Message> {
         let requestMess: NSFetchRequest<Message> = Message.fetchRequest()
         requestMess.returnsObjectsAsFaults = false
-        requestMess.predicate = NSPredicate(format: "conversationID == %@", conversationID)
+        requestMess.predicate = NSPredicate(format: "senderID == %@ AND conversationID == %@", senderid,  conversationID )
         requestMess.fetchLimit = 1
         let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
         requestMess.sortDescriptors = [sortDescriptor]

@@ -112,7 +112,6 @@ extension MultiPeerCommunicator: MCSessionDelegate {
     }
 
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("didReceiveData: \(data)")
         let str = String(data: data, encoding: .utf8)!
         self.delegate?.textChanged(manager: self, text: str)
     }

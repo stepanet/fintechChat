@@ -134,8 +134,6 @@ extension AppUser {
 
         let request: NSFetchRequest<AppUser> = NSFetchRequest(entityName: "AppUser")
         let delete = NSBatchDeleteRequest(fetchRequest: (request as? NSFetchRequest<NSFetchRequestResult>)!)
-        print("coreDate", delete.resultType.rawValue)
-
         do {
             try context.execute(delete)
             return true

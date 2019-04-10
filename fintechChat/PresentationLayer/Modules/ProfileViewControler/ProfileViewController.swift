@@ -58,7 +58,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     deinit {
-        print("Remove NotificationCenter Deinit")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -170,6 +169,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let actionLibrary = UIAlertAction(title: "Библиотека", style: .default) { (_) in
             self.handleSelectProfileImageView(.photoLibrary)
         }
+        let actionLoad = UIAlertAction(title: "Скачать", style: .default) { (_) in
+            self.performSegue(withIdentifier: "showLoadImage", sender: self)
+        }
         let deletePhotoProfile = UIAlertAction(title: "Удалить фото", style: .destructive) { (_) in
             let selectedImage = UIImage(named: "placeholder-user")
             self.profileImageView.image = selectedImage
@@ -184,6 +186,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         alertController.addAction(actionPhoto)
         alertController.addAction(actionLibrary)
+        alertController.addAction(actionLoad)
         alertController.addAction(actionCancel)
 
         if self.profileImageView.image != UIImage(named: "placeholder-user") {

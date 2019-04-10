@@ -31,7 +31,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
         
         // Reading object
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 60
+        tableView.estimatedRowHeight = 80
 
         fetchedResultsController.delegate = self
         frc()
@@ -87,7 +87,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     func moveMesageToFirst() {
         let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
         do {
-            let result =  try CoreDataStack().mainContext.fetch(requestMess)
+            let result =  try CoreDataStack.shared.mainContext.fetch(requestMess)
             if result.count != 0 {
                 let indexPath = IndexPath(row: result.count - 1, section: 0)
                 self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -110,7 +110,7 @@ extension ConversationViewController: UITableViewDataSource {
         
         let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
         do {
-            let result =  try CoreDataStack().mainContext.fetch(requestMess)
+            let result =  try CoreDataStack.shared.mainContext.fetch(requestMess)
             return result.count
         } catch {
             return 0
@@ -120,22 +120,34 @@ extension ConversationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //let messages = fetchedResultsController.object(at: indexPath) as! Message
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
 
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
         let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
         
-        do {
-                let result =  try CoreDataStack().mainContext.fetch(requestMess)
-            if result.count > 0 {
-                cell.messageText.text = result[indexPath.row].text
-            } else {
-              cell.messageText.text = ""
-            }
+            do {
+                let result =  try CoreDataStack.shared.mainContext.fetch(requestMess)
+                
+                if result.count > 0 {
+                    //есть сообщения
+                    if result[indexPath.row].senderID == conversation?.userid {
+                                let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
+                        cell.messageText.text = result[indexPath.row].text!
+                        return cell
+                    } else {
+                                let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageTableViewCell
+                        cell.messageText.text = "  " + result[indexPath.row].text!
+                        return cell
+                    }
+                }
+
             } catch {
-                    print(error)
+                print(error)
             }
-        return cell
+        return UITableViewCell()
     }
+    
+    
 }
 
 

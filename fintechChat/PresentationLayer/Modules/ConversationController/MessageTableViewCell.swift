@@ -23,10 +23,11 @@ class MessageTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupTheme()
     }
+    
 
     fileprivate func setupTheme() {
 
-        messageText.layer.cornerRadius = 5
+        messageText.layer.cornerRadius = 8
         messageText.clipsToBounds = true
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
         self.messageText.backgroundColor = ThemeManager.currentTheme().backgroundColor

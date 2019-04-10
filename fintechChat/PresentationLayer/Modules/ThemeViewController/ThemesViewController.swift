@@ -55,15 +55,12 @@ class ThemesViewController: UIViewController {
 
         switch sender.tag {
         case 0:
-            print("ligth")
             ThemeManager.applyTheme(theme: .ligth)
             saveTheme.text = ".ligth"
         case 1:
-            print("dark")
             ThemeManager.applyTheme(theme: .dark)
             saveTheme.text = ".dark"
         case 2:
-            print("shampan")
             ThemeManager.applyTheme(theme: .shampan)
             saveTheme.text = ".shampan"
         default:
