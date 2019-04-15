@@ -9,9 +9,18 @@
 import Foundation
 
 
-class Service {
+protocol IModel {
+    var pixelBay: PixabayJson? { get set }
+    var imageInfoArray: [ImageInfo]? {get set}
+}
+
+class Service: IModel {
     
     static let shared = Service()
+    
+    var imageInfoArray: [ImageInfo]?
+    var pixelBay: PixabayJson?
+    
     
     //возвращаем время из timestamp
     func dateString(date: Date) -> String {
@@ -31,7 +40,29 @@ class Service {
     public static func daysBetween(start: Date, end: Date) -> Int {
         return Calendar.current.dateComponents([.day], from: start, to: end).day!
     }
+    
+    func pixelLoadJson() {
+        let url = URL(string: "https://pixabay.com/api/?key=12169393-c73621fb8fde92ee029635ac1&q=&image_type=photo&pretty=true&page=1&per_page=18")
+        
+        DispatchQueue.global().async {
+            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+                if error == nil {
+                    do {
+                        self.pixelBay = try JSONDecoder().decode(PixabayJson.self, from: data!)
+                        
+                        self.imageInfoArray = self.pixelBay!.hits
+                        
+                    } catch {
+                        print("pixelBay load error",error.localizedDescription)
+                    }
+                    print(self.imageInfoArray!.count)
+                }
+                }.resume()
+        }
+    }
+    
 }
+
 
 extension UIImage {
     func resizeImage(targetSize: CGSize) -> UIImage {
@@ -47,4 +78,21 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return newImage!
 }
+}
+
+extension UIImageView {
+    func downloadedFrom(url: URL, contentMode mode: UIView.ContentMode = .scaleToFill ) {
+        contentMode = mode
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard
+                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
+                let data = data, error == nil,
+                let image = UIImage(data: data)
+                else { return }
+            DispatchQueue.main.async() {
+                self.image = image
+            }
+            }.resume()
+    }
 }

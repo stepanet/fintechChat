@@ -20,6 +20,9 @@
 		3B5D0F18223856A800612E4A /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D0F14223856A800612E4A /* ThemesViewController.m */; };
 		3B5D9E962240DEA00016338B /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D9E952240DEA00016338B /* MessageType.swift */; };
 		3B5D9E982240DF560016338B /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5D9E972240DF560016338B /* Communicator.swift */; };
+		3B60BF7C22651D0D0021B5FC /* Pixabay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B60BF7B22651D0D0021B5FC /* Pixabay.swift */; };
+		3B60BF7E22651D440021B5FC /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B60BF7D22651D440021B5FC /* CollectionViewController.swift */; };
+		3B60BF8022651D500021B5FC /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B60BF7F22651D500021B5FC /* CollectionViewCell.swift */; };
 		3B630D9C2242AFA2006B1800 /* fintech.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B630D9A2242AFA2006B1800 /* fintech.xcdatamodeld */; };
 		3B630D9E2242B0D3006B1800 /* CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B630D9D2242B0D3006B1800 /* CoreData.swift */; };
 		3BB73B7E22215D1B00EB5FA8 /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB73B7D22215D1B00EB5FA8 /* MessageTableViewCell.swift */; };
@@ -56,6 +59,9 @@
 		3B5D0F1A223856FE00612E4A /* fintechChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "fintechChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B5D9E952240DEA00016338B /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
 		3B5D9E972240DF560016338B /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
+		3B60BF7B22651D0D0021B5FC /* Pixabay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pixabay.swift; sourceTree = "<group>"; };
+		3B60BF7D22651D440021B5FC /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		3B60BF7F22651D500021B5FC /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		3B630D9B2242AFA2006B1800 /* fintech.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = fintech.xcdatamodel; sourceTree = "<group>"; };
 		3B630D9D2242B0D3006B1800 /* CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreData.swift; sourceTree = "<group>"; };
 		3BB73B7D22215D1B00EB5FA8 /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
@@ -122,6 +128,15 @@
 				3B5D0F16223856A800612E4A /* ThemesViewControllerDelegate.h */,
 			);
 			path = objc;
+			sourceTree = "<group>";
+		};
+		3B60BF7A22651C110021B5FC /* DownloadViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3B60BF7F22651D500021B5FC /* CollectionViewCell.swift */,
+				3B60BF7D22651D440021B5FC /* CollectionViewController.swift */,
+			);
+			path = DownloadViewController;
 			sourceTree = "<group>";
 		};
 		3BB73B7C22215C3600EB5FA8 /* ServiceLayer */ = {
@@ -206,6 +221,7 @@
 		3BD09670225E2167002A5076 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				3B60BF7A22651C110021B5FC /* DownloadViewController */,
 				3BD0966B225E20D0002A5076 /* ConversationListController */,
 				3BD0966C225E2102002A5076 /* ConversationController */,
 				3BD0966D225E211E002A5076 /* ProfileViewControler */,
@@ -219,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				3B17B9A5222888B200D944F7 /* ThemeManager.swift */,
+				3B60BF7B22651D0D0021B5FC /* Pixabay.swift */,
 				3BE216D32256B5BC00EC8C98 /* Service.swift */,
 				3B5D9E952240DEA00016338B /* MessageType.swift */,
 				3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */,
@@ -387,7 +404,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B60BF7E22651D440021B5FC /* CollectionViewController.swift in Sources */,
 				3BE216D62256B97D00EC8C98 /* OldCode.swift in Sources */,
+				3B60BF8022651D500021B5FC /* CollectionViewCell.swift in Sources */,
 				3B5D0F18223856A800612E4A /* ThemesViewController.m in Sources */,
 				3BB73B7E22215D1B00EB5FA8 /* MessageTableViewCell.swift in Sources */,
 				3B2DDB44221E0A25005D5272 /* ConversationTableViewCell.swift in Sources */,
@@ -403,6 +422,7 @@
 				3B2DDB46221E0C3C005D5272 /* ConversationsList.swift in Sources */,
 				3B5D0F17223856A800612E4A /* Themes.m in Sources */,
 				3B3C0C4A222DCE230009E917 /* SettingsTableViewController.swift in Sources */,
+				3B60BF7C22651D0D0021B5FC /* Pixabay.swift in Sources */,
 				3BDA63EE222D49CC00D381D8 /* ThemesViewController.swift in Sources */,
 				3BEF8BC5220B73AC00641B2B /* AppDelegate.swift in Sources */,
 				3BE216D42256B5BC00EC8C98 /* Service.swift in Sources */,

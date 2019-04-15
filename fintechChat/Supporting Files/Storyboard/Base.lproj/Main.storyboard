@@ -282,20 +282,20 @@
         <!--Profile View Controller-->
         <scene sceneID="kfR-MS-aND">
             <objects>
-                <viewController id="cgX-rv-1w6" customClass="ProfileViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="cgX-rv-1w6" customClass="ProfileViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="gzz-sZ-TOH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-user" translatesAutoresizingMaskIntoConstraints="NO" id="JfC-zb-jem">
-                                <rect key="frame" x="16" y="72" width="288" height="288"/>
+                                <rect key="frame" x="16" y="28" width="288" height="288"/>
                                 <color key="backgroundColor" name="yellowColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="JfC-zb-jem" secondAttribute="height" multiplier="1:1" id="Oha-Um-lZu"/>
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tdk-fc-srJ">
-                                <rect key="frame" x="16" y="398" width="288" height="118"/>
+                                <rect key="frame" x="16" y="354" width="288" height="162"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Исчерпавший свою удачу капитан Джек Воробей обнаруживает, что за ним охотится его старый неприятель, ужасный капитан Салазар и его призрачные пираты.</string>
@@ -326,7 +326,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя пользователя" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="80f-JN-ZmA">
-                                <rect key="frame" x="16" y="368" width="288" height="22"/>
+                                <rect key="frame" x="16" y="324" width="288" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="E6S-tp-bWD"/>
                                 </constraints>
@@ -340,7 +340,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4o-ha-Io8">
-                                <rect key="frame" x="224" y="280" width="80" height="80"/>
+                                <rect key="frame" x="224" y="236" width="80" height="80"/>
                                 <color key="backgroundColor" name="darkColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="2KS-r3-xZt"/>
@@ -354,7 +354,7 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="esS-dt-pLM">
-                                <rect key="frame" x="141.5" y="438.5" width="37" height="37"/>
+                                <rect key="frame" x="141.5" y="416.5" width="37" height="37"/>
                                 <color key="color" red="1" green="0.15385301270000001" blue="0.2282891916" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </activityIndicatorView>
                         </subviews>
@@ -401,61 +401,12 @@
                         <outlet property="profileImageView" destination="JfC-zb-jem" id="f60-TM-Rke"/>
                         <outlet property="profileNameTxt" destination="80f-JN-ZmA" id="6rf-eD-jae"/>
                         <outlet property="takePicturesForProfile" destination="u4o-ha-Io8" id="B9w-Y8-JQc"/>
-                        <segue destination="k81-I1-A8d" kind="presentation" identifier="showLoadImage" modalTransitionStyle="flipHorizontal" id="5Fo-3y-YR2"/>
+                        <segue destination="w0R-bo-toL" kind="show" identifier="downloadImage" id="RmJ-QD-bUx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="142-bS-h6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2857.5" y="1590.8450704225352"/>
-        </scene>
-        <!--Выбор картинки-->
-        <scene sceneID="Ivj-Sh-aa3">
-            <objects>
-                <collectionViewController id="BPb-C3-MQh" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Whe-yi-GJr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="whiteColor"/>
-                        <collectionViewLayout key="collectionViewLayout" id="8YM-aO-jL2"/>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="UBL-w2-Eu1">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3SR-1N-qln">
-                                <rect key="frame" x="67.5" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="txH-EB-sGf">
-                                <rect key="frame" x="135" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="BPb-C3-MQh" id="jY0-TS-zoA"/>
-                            <outlet property="delegate" destination="BPb-C3-MQh" id="qmg-aW-tlh"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="Выбор картинки" id="c0s-uk-KkO">
-                        <barButtonItem key="backBarButtonItem" title="Отмена" id="KFG-M3-KfP"/>
-                        <barButtonItem key="leftBarButtonItem" title="Отмена" id="oAc-oc-r9z"/>
-                    </navigationItem>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="17h-II-DdH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4843.125" y="1596.1267605633802"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MS6-wr-6m3">
@@ -475,27 +426,67 @@
             </objects>
             <point key="canvasLocation" x="1860" y="1590.8450704225352"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Udr-eT-98h">
+        <!--Collection View Controller-->
+        <scene sceneID="PU7-iL-QYr">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k81-I1-A8d" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="i4J-XY-zmE"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Gwb-yn-o7U">
-                        <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <collectionViewController id="w0R-bo-toL" customClass="CollectionViewController" customModule="fintechChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1D3-WY-qjN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mpJ-BR-3al">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <activityIndicatorView key="backgroundView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="nkx-aH-NgV">
+                            <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="0.262116248" green="1" blue="0.70255591969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </activityIndicatorView>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Qdi-4j-4Jy" customClass="CollectionViewCell" customModule="fintechChat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images" translatesAutoresizingMaskIntoConstraints="NO" id="vtW-RP-kfT">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="vtW-RP-kfT" firstAttribute="top" secondItem="Qdi-4j-4Jy" secondAttribute="top" id="Xvg-1D-drp"/>
+                                    <constraint firstItem="vtW-RP-kfT" firstAttribute="leading" secondItem="Qdi-4j-4Jy" secondAttribute="leading" id="aLc-iz-jhS"/>
+                                    <constraint firstAttribute="trailing" secondItem="vtW-RP-kfT" secondAttribute="trailing" id="bvc-ML-ghc"/>
+                                    <constraint firstAttribute="bottom" secondItem="vtW-RP-kfT" secondAttribute="bottom" id="x3J-HE-7vA"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="image" destination="vtW-RP-kfT" id="1XS-jy-f5L"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="w0R-bo-toL" id="6j9-Pn-X1t"/>
+                            <outlet property="delegate" destination="w0R-bo-toL" id="VSw-iS-z4e"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="5Zq-KZ-Vvg"/>
                     <connections>
-                        <segue destination="BPb-C3-MQh" kind="relationship" relationship="rootViewController" id="spm-oT-KO2"/>
+                        <outlet property="activityIndicator" destination="nkx-aH-NgV" id="a0t-gG-Z8W"/>
+                        <segue destination="cgX-rv-1w6" kind="show" identifier="imageBack" id="ZLc-FW-Uiy"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h4a-K5-xtq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bQv-6f-dfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3845.625" y="1596.1267605633802"/>
+            <point key="canvasLocation" x="4110" y="1238"/>
         </scene>
     </scenes>
     <resources>
+        <image name="images" width="112.5" height="112.5"/>
         <image name="placeholder-user" width="300" height="300"/>
         <image name="profile" width="72" height="72"/>
         <image name="slr-camera-2-xxl" width="64" height="64"/>
@@ -515,4 +506,8 @@
             <color red="0.97200000286102295" green="0.87000000476837158" blue="0.33700001239776611" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="RmJ-QD-bUx"/>
+        <segue reference="ZLc-FW-Uiy"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -22,6 +22,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
 
     var saveDataOnMemory = SaveData()
+    var imageFromLoad: UIImageView?
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
     
@@ -39,7 +40,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         aboutProfileTextView.delegate = self
         profileNameTxt.delegate = self
         keyboardSetup()
@@ -49,8 +49,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         //настроим интерфейс
         setupUI()
+        if self.imageFromLoad == nil {
         btnEditUnHidden()
         fieldProfileDisable()
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -97,7 +99,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let image = UIImage(data: (result?.first?.image)!)
                 self.profileNameTxt.text =  result?.first?.name
                 self.aboutProfileTextView.text = result?.first?.about
-                self.profileImageView.image = image
+            if self.imageFromLoad != nil {
+                self.profileImageView.image = self.imageFromLoad?.image
+                self.editBtn.isHidden = true
+                self.gcdBtn.isHidden = false
+                return
+            }
+            self.profileImageView.image = image
 
             }
         }
@@ -170,7 +178,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.handleSelectProfileImageView(.photoLibrary)
         }
         let actionLoad = UIAlertAction(title: "Скачать", style: .default) { (_) in
-            self.performSegue(withIdentifier: "showLoadImage", sender: self)
+            self.performSegue(withIdentifier: "downloadImage", sender: self)
         }
         let deletePhotoProfile = UIAlertAction(title: "Удалить фото", style: .destructive) { (_) in
             let selectedImage = UIImage(named: "placeholder-user")
