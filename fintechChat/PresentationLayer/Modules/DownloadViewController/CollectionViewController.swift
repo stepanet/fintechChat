@@ -132,9 +132,10 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         //print(indexPath.row)
         
         guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionViewCell else { return }
-        let url = URL(string: imageInfoArray[indexPath.row].webformatURL)
+        let url = URL(string: imageInfoArray[indexPath.row].previewURL)
+        let urlToProfile = URL(string: imageInfoArray[indexPath.row].webformatURL)
         cell.image.downloadedFrom(url: url!, contentMode: .scaleAspectFill)
-        performSegue(withIdentifier: "imageBack", sender: cell.image)
+       performSegue(withIdentifier: "imageBack", sender: urlToProfile!)
     }
     
     //подготовка данных для пересылки во вьюконтроллер
@@ -142,7 +143,7 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         
         if segue.identifier == "imageBack" {
             let controller = segue.destination as! ProfileViewController
-            controller.imageFromLoad = sender as? UIImageView
+            controller.linkToImageFromLoad = sender as? URL
         }
     }
     

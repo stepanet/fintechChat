@@ -90,7 +90,7 @@ class ConversationsListViewController: UIViewController,  NSFetchedResultsContro
             image = image!.resizeImage(targetSize: size)
             DispatchQueue.main.async {
                 let button = UIButton()
-                button.layer.cornerRadius = 20
+                button.layer.cornerRadius = 5
                 button.clipsToBounds = true
                 button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
                 button.setImage(image, for: .normal)

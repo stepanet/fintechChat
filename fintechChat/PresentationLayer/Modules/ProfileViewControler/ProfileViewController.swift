@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     var saveDataOnMemory = SaveData()
     var imageFromLoad: UIImageView?
+    var linkToImageFromLoad: URL?
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
     
@@ -49,7 +50,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         //настроим интерфейс
         setupUI()
-        if self.imageFromLoad == nil {
+        if self.linkToImageFromLoad == nil {
         btnEditUnHidden()
         fieldProfileDisable()
         }
@@ -88,6 +89,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private func loadProfileData() {
 
         coreDate.mainContext.perform {
+            
+            if self.linkToImageFromLoad != nil {
+                DispatchQueue.main.async {
+                    self.profileImageView.downloadedFrom(url: self.linkToImageFromLoad!, contentMode: .scaleAspectFill)
+                    self.linkToImageFromLoad = nil
+                }
+                self.editBtn.isHidden = true
+                self.gcdBtn.isHidden = false
+                
+                return
+            }
             //считываем данные  из coreDate
             let model = self.coreDate.managedObjectModel
             let user = AppUser.fetchRequest(model: model, templateName: "AppUser")
@@ -99,12 +111,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 let image = UIImage(data: (result?.first?.image)!)
                 self.profileNameTxt.text =  result?.first?.name
                 self.aboutProfileTextView.text = result?.first?.about
-            if self.imageFromLoad != nil {
-                self.profileImageView.image = self.imageFromLoad?.image
-                self.editBtn.isHidden = true
-                self.gcdBtn.isHidden = false
-                return
-            }
+//            if self.linkToImageFromLoad != nil {
+//                DispatchQueue.main.async {
+//                    self.profileImageView.downloadedFrom(url: self.linkToImageFromLoad!, contentMode: .scaleAspectFill)
+//                    self.linkToImageFromLoad = nil
+//                }
+//                self.editBtn.isHidden = true
+//                self.gcdBtn.isHidden = false
+//
+//                return
+//            }
             self.profileImageView.image = image
 
             }
