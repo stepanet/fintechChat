@@ -98,7 +98,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 self.editBtn.isHidden = true
                 self.gcdBtn.isHidden = false
                 
-                return
+                //return
             }
             //считываем данные  из coreDate
             let model = self.coreDate.managedObjectModel
@@ -295,11 +295,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //safe button disable
     fileprivate func btnSaveDisable() {
             self.gcdBtn.isEnabled = false
+            self.gcdBtn.changeColor(self.gcdBtn, state: false)
     }
 
     //safe button enable
     fileprivate func btnSaveEnable() {
         gcdQueue.queueMain.async {
+            self.gcdBtn.pulsate()
+            self.gcdBtn.changeColor(self.gcdBtn, state: true)
             self.gcdBtn.isEnabled = true
         }
     }

@@ -84,6 +84,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
         moveMesageToFirst()
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        sendMessageBtn.flash()
+    }
+    
+    
     func moveMesageToFirst() {
         let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
         do {
@@ -132,7 +137,7 @@ extension ConversationViewController: UITableViewDataSource {
                     //есть сообщения
                     if result[indexPath.row].senderID == conversation?.userid {
                                 let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
-                        cell.messageText.text = result[indexPath.row].text!
+                        cell.messageText.text = " " + result[indexPath.row].text!
                         return cell
                     } else {
                                 let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageTableViewCell
