@@ -36,7 +36,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
         fetchedResultsController.delegate = self
         frc()
         
+        
         self.navigationItem.title = conversation?.userid
+        
+        UIView.animate(withDuration: 0.5) {
+            self.navigationItem.title = self.conversation?.userid
+            self.navigationItem.titleView?.backgroundColor = .green
+            }
+        
+       
         session.delegate = self
         messageTxtField.delegate = self
         self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
@@ -85,9 +93,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        sendMessageBtn.flash()
+//        if textField.text!.count > 1 {
+//            sendMessageBtn.changeColor(sendMessageBtn, state: true)
+//        }
+        print(#function)
     }
-    
     
     func moveMesageToFirst() {
         let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
@@ -202,7 +212,17 @@ extension ConversationViewController: MCSessionDelegate {
     }
 
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print(#function)
+        print(#function, state.rawValue)
+        //немного другая логика. набрать текст можно, но если пира нет отправить его нельзя
+        //для проверки свернуть/развернуть второе приложение
+        DispatchQueue.main.async {
+            if state.rawValue == 0 {
+                self.sendMessageBtn.changeColor(self.sendMessageBtn, state: false)
+            } else if state.rawValue == 2 {
+                self.sendMessageBtn.changeColor(self.sendMessageBtn, state: true)
+            }
+        }
+
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -215,6 +235,23 @@ extension ConversationViewController: MCSessionDelegate {
 
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
         print(#function)
+    }
+    
+    
+    //кто то пропал
+    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+//        print("потеряли участника: \(peerID)")
+//        let lostUserConnect = FetchRequestManager.shared.fetchConversationWithID(id: peerID.displayName)
+//
+//        do {
+//            let result =  try CoreDataStack.shared.mainContext.fetch(lostUserConnect)
+//            let objectUpdate = result[0]
+//            objectUpdate.setValue(false, forKey: "isOnline")
+//            CoreDataStack.shared.saveCdContext()
+//        }  catch {
+//            print("error")
+//        }
+        sendMessageBtn.changeColor(sendMessageBtn, state: false)
     }
 
     func addDataToArrayMsg(text: String, fromUser: String, toUser: String) {

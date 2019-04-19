@@ -31,7 +31,6 @@
 		3BE05EE422385A4A00CC1B36 /* ProveileViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */; };
 		3BE216D02256B1A200EC8C98 /* FetchRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE216CF2256B1A200EC8C98 /* FetchRequestManager.swift */; };
 		3BE216D42256B5BC00EC8C98 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE216D32256B5BC00EC8C98 /* Service.swift */; };
-		3BE216D62256B97D00EC8C98 /* OldCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE216D52256B97D00EC8C98 /* OldCode.swift */; };
 		3BE998112232D1E600185AEF /* ReadWriteDataToDisk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */; };
 		3BEF8BC5220B73AC00641B2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */; };
 		3BEF8BCA220B73AC00641B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BEF8BC8220B73AC00641B2B /* Main.storyboard */; };
@@ -69,7 +68,6 @@
 		3BE05EE322385A4A00CC1B36 /* ProveileViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProveileViewExtension.swift; sourceTree = "<group>"; };
 		3BE216CF2256B1A200EC8C98 /* FetchRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRequestManager.swift; sourceTree = "<group>"; };
 		3BE216D32256B5BC00EC8C98 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		3BE216D52256B97D00EC8C98 /* OldCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldCode.swift; sourceTree = "<group>"; };
 		3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadWriteDataToDisk.swift; sourceTree = "<group>"; };
 		3BEF8BC1220B73AC00641B2B /* fintechChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = fintechChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BEF8BC4220B73AC00641B2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -257,7 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				3BE998102232D1E500185AEF /* ReadWriteDataToDisk.swift */,
-				3BE216D52256B97D00EC8C98 /* OldCode.swift */,
 			);
 			path = OldCode;
 			sourceTree = "<group>";
@@ -405,7 +402,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B60BF7E22651D440021B5FC /* CollectionViewController.swift in Sources */,
-				3BE216D62256B97D00EC8C98 /* OldCode.swift in Sources */,
 				3B60BF8022651D500021B5FC /* CollectionViewCell.swift in Sources */,
 				3B5D0F18223856A800612E4A /* ThemesViewController.m in Sources */,
 				3BB73B7E22215D1B00EB5FA8 /* MessageTableViewCell.swift in Sources */,

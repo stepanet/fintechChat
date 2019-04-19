@@ -113,6 +113,20 @@ extension UIButton {
         layer.add(pulse, forKey: "pulse")
     }
     
+    func scale() {
+        
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.duration = 0.5
+        pulse.fromValue = 0.95
+        pulse.toValue = 1.15
+        //pulse.autoreverses = true
+        //pulse.repeatCount = 2
+        //pulse.initialVelocity = 0.5
+        //pulse.damping = 1.0
+        
+        layer.add(pulse, forKey: "pulse")
+    }
+    
     func flash() {
         
         let flash = CABasicAnimation(keyPath: "opacity")
@@ -130,9 +144,15 @@ extension UIButton {
     func changeColor(_ button: UIButton, state: Bool) {
         UIView.animate(withDuration: 0.5) {
             if state {
-                button.backgroundColor = .blue
+                button.backgroundColor = .green
+                button.titleLabel?.textColor = .white
+                button.isEnabled = true
+                button.scale()
             } else {
-               button.backgroundColor = .white
+               button.backgroundColor = .gray
+               button.titleLabel?.textColor = .darkGray
+               button.isEnabled = false
+               button.scale()
             }
         }
     }
