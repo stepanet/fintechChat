@@ -10,6 +10,7 @@
 		3B17B99D2228820500D944F7 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B17B99B2228820500D944F7 /* Settings.storyboard */; };
 		3B17B9A6222888B200D944F7 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B17B9A5222888B200D944F7 /* ThemeManager.swift */; };
 		3B2236EC222141F400561112 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2236EB222141F300561112 /* ConversationViewController.swift */; };
+		3B22430B226BC3E400FD02CE /* Animated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B22430A226BC3E400FD02CE /* Animated.swift */; };
 		3B2DDB42221E0619005D5272 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDB41221E0619005D5272 /* ConversationsListViewController.swift */; };
 		3B2DDB44221E0A25005D5272 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDB43221E0A25005D5272 /* ConversationTableViewCell.swift */; };
 		3B2DDB46221E0C3C005D5272 /* ConversationsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */; };
@@ -44,6 +45,7 @@
 		3B17B9A0222883D600D944F7 /* ThemesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		3B17B9A5222888B200D944F7 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3B2236EB222141F300561112 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		3B22430A226BC3E400FD02CE /* Animated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animated.swift; sourceTree = "<group>"; };
 		3B2DDB41221E0619005D5272 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		3B2DDB43221E0A25005D5272 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsList.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				3B17B9A5222888B200D944F7 /* ThemeManager.swift */,
 				3B60BF7B22651D0D0021B5FC /* Pixabay.swift */,
 				3BE216D32256B5BC00EC8C98 /* Service.swift */,
+				3B22430A226BC3E400FD02CE /* Animated.swift */,
 				3B5D9E952240DEA00016338B /* MessageType.swift */,
 				3B2DDB45221E0C3C005D5272 /* ConversationsList.swift */,
 			);
@@ -405,6 +408,7 @@
 				3B60BF8022651D500021B5FC /* CollectionViewCell.swift in Sources */,
 				3B5D0F18223856A800612E4A /* ThemesViewController.m in Sources */,
 				3BB73B7E22215D1B00EB5FA8 /* MessageTableViewCell.swift in Sources */,
+				3B22430B226BC3E400FD02CE /* Animated.swift in Sources */,
 				3B2DDB44221E0A25005D5272 /* ConversationTableViewCell.swift in Sources */,
 				3B5D9E982240DF560016338B /* Communicator.swift in Sources */,
 				3B3ADE912214BEBF000D97B5 /* ProfileViewController.swift in Sources */,

@@ -68,6 +68,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Animated.animated.animatedTableView(tableView: tableView)
         moveMesageToFirst()
     }
 

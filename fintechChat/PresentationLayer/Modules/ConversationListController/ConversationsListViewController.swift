@@ -63,6 +63,8 @@ class ConversationsListViewController: UIViewController,  NSFetchedResultsContro
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         session.delegate = self
         navBarBtnSetup()
         loadData()
