@@ -15,11 +15,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     var conversation: Conversation?
     var message: Message?
     var session: MCSession!
-    var peerID: MCPeerID!
+    var peerID: MCPeerID?
 
     var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Message", keyForSort: "timestamp", sectionName: nil)
-    
-    //var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Conversation", keyForSort: "isOnline", sectionName: "isOnline", predicate: nil, id: nil)
 
     @IBOutlet weak var messageTxtField: UITextField!
     @IBOutlet weak var sendMessageBtn: UIButton!
@@ -35,21 +33,26 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
 
         fetchedResultsController.delegate = self
         frc()
-        
-        
-        self.navigationItem.title = conversation?.userid
-        
-        UIView.animate(withDuration: 0.5) {
+    
+        UIView.animate(withDuration: 1.0, delay: 2.0, options: .curveLinear, animations: {
+            //self.navigationItem.titleView!.transform = CGAffineTransform(scaleX: 1.1,y: 1.1)
             self.navigationItem.title = self.conversation?.userid
-            self.navigationItem.titleView?.backgroundColor = .green
-            }
+            //self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.green]
+        }, completion: nil)
         
-       
         session.delegate = self
         messageTxtField.delegate = self
-        self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
-        self.tableView.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        //self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
+        //self.tableView.backgroundColor = ThemeManager.currentTheme().backgroundColor
         keyboardSetup()
+        
+        
+        //проверим. если это пир с кем соединение, то можем отправлять сообщение
+        if peerID?.displayName ==  self.conversation?.userid {
+            sendMessageBtn.changeColor(sendMessageBtn, state: true)
+        } else {
+            sendMessageBtn.changeColor(sendMessageBtn, state: false)
+        }
     }
     
     deinit {
@@ -74,10 +77,11 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
             self.addDataToArrayMsg(text: messageTxtField.text!, fromUser: session.myPeerID.displayName, toUser: self.conversation?.userid ?? "")
             //отошлем пиру
             if peerID != nil {
-                self.sendText(text: messageTxtField.text!, peerID: peerID)
+                self.sendText(text: messageTxtField.text!, peerID: peerID!)
             } else {
                 let alertController = UIAlertController(title: "DER KATASTROFA", message: "PEER OTVALIL", preferredStyle: .alert)
                 let actionSave = UIAlertAction(title: "ОК", style: .default) { (_) in
+                    self.sendMessageBtn.changeColor(self.sendMessageBtn, state: false)
                 }
                 alertController.addAction(actionSave)
                 self.present(alertController, animated: true, completion: nil)
@@ -93,9 +97,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-//        if textField.text!.count > 1 {
-//            sendMessageBtn.changeColor(sendMessageBtn, state: true)
-//        }
+        //sendMessageBtn.changeColor(sendMessageBtn, state: true)
         print(#function)
     }
     
@@ -135,9 +137,8 @@ extension ConversationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //let messages = fetchedResultsController.object(at: indexPath) as! Message
-
-        
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "MyMessageCell", for: indexPath) as! MessageTableViewCell
+        
         let requestMess = FetchRequestManager.shared.fetchMesasgeWithConversationID(id: conversation!.conversationID!)
         
             do {
@@ -169,7 +170,7 @@ extension ConversationViewController: UITableViewDataSource {
 extension ConversationViewController: UITableViewDelegate {
     //core data
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Messages" //section == 0 ? "Online" : "History"
+        return "Messages"
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -193,6 +194,9 @@ extension ConversationViewController: MCSessionDelegate {
             let msg = try jsonDecoder.decode(MessageType.self, from: data)
             str = msg.text
             msgId = msg.messageId
+            DispatchQueue.main.async {
+                self.sendMessageBtn.changeColor(self.sendMessageBtn, state: true)
+            }
         } catch {
             print(error)
         }
@@ -213,7 +217,10 @@ extension ConversationViewController: MCSessionDelegate {
 
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         print(#function, state.rawValue)
-        //немного другая логика. набрать текст можно, но если пира нет отправить его нельзя
+        //немного другая логика. набрать текст можно, но если пира нет отправить его нельзя цвет кнопки серый
+        //как только пир появился цвет кнопки зеленый
+        //пир отвалился - срабатывает метод session(_:peer:didChange:) 0 , но он немного тормозной видимо задержка по времени специально чтобы убедится в
+        //потере соединения
         //для проверки свернуть/развернуть второе приложение
         DispatchQueue.main.async {
             if state.rawValue == 0 {
@@ -284,6 +291,7 @@ extension ConversationViewController: MCSessionDelegate {
                 try self.session.send(jsonMessage!, toPeers: [peerID], with: .reliable)
             } catch let error {
                 print("Ошибка отправки: \(error)")
+                sendMessageBtn.changeColor(sendMessageBtn, state: false)
             }
             
             let requestConvID: NSFetchRequest<Conversation> = Conversation.fetchRequest()
@@ -304,6 +312,7 @@ extension ConversationViewController: MCSessionDelegate {
 
     func keyboardSetup() {
         // Keyboard notifications:
+
         NotificationCenter.default.addObserver(forName: UIWindow.keyboardWillShowNotification, object: nil, queue: nil) { (_) in 
             self.view.frame.origin.y = -350
             }
@@ -317,7 +326,7 @@ extension ConversationViewController: MCSessionDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string == "\n" {
             sendMsgActionBtn(sendMessageBtn)
-            messageTxtField.resignFirstResponder()
+            //messageTxtField.resignFirstResponder()
             return true
         }
         return true

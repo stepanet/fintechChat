@@ -178,7 +178,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
         if conversation.isOnline {
             cell.messageLbl.textColor = .green
         } else {
-            cell.messageLbl.textColor = ThemeManager.currentTheme().titleTextColor
+            //cell.messageLbl.textColor = ThemeManager.currentTheme().titleTextColor
         }
         if datetxt != nil {
             cell.dateLbl.text = Service.shared.dateString(date: datetxt!)
@@ -189,7 +189,7 @@ extension ConversationsListViewController: UITableViewDataSource  {
     
     func loadData() {
         DispatchQueue.main.async {
-            self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
+            //self.view.backgroundColor = ThemeManager.currentTheme().backgroundColor
             self.tableView.reloadData()
         }
     }

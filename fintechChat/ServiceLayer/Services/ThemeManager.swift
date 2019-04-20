@@ -89,7 +89,6 @@ enum Theme: Int {
             return UIColor(named: "darkColor")!
         case .shampan:
             return UIColor(named: "blueColor")!
-
         }
     }
 }

@@ -216,7 +216,6 @@
                                     </textField>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHT-qj-jbB">
                                         <rect key="frame" x="229" y="10" width="83" height="30"/>
-                                        <color key="backgroundColor" name="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="guP-k6-UgS"/>
                                         </constraints>
