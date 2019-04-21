@@ -11,6 +11,7 @@ import UIKit
 class CollectionViewController: UICollectionViewController, UISearchBarDelegate , UITextFieldDelegate {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     
     var pixelBay: PixabayJson?
     var imageInfoArray = [ImageInfo]()

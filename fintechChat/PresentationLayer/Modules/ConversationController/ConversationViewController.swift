@@ -16,6 +16,15 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     var message: Message?
     var session: MCSession!
     var peerID: MCPeerID?
+    
+    //var titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+    var titleLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 200, height: 400)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        return label
+    }()
 
     var fetchedResultsController = CoreDataStack.fetchedResultsController(entityName: "Message", keyForSort: "timestamp", sectionName: nil)
 
@@ -23,7 +32,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     @IBOutlet weak var sendMessageBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var textView: UIView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,11 +43,9 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
         fetchedResultsController.delegate = self
         frc()
     
-        UIView.animate(withDuration: 1.0, delay: 2.0, options: .curveLinear, animations: {
-            //self.navigationItem.titleView!.transform = CGAffineTransform(scaleX: 1.1,y: 1.1)
-            self.navigationItem.title = self.conversation?.userid
-            //self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.green]
-        }, completion: nil)
+        self.titleLabel.text = self.conversation!.userid!
+        self.navigationItem.titleView = titleLabel
+        
         
         session.delegate = self
         messageTxtField.delegate = self
@@ -50,8 +57,10 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
         //проверим. если это пир с кем соединение, то можем отправлять сообщение
         if peerID?.displayName ==  self.conversation?.userid {
             sendMessageBtn.changeColor(sendMessageBtn, state: true)
+            Animated.animated.labelAnimation(self.titleLabel, enabled: true)
         } else {
             sendMessageBtn.changeColor(sendMessageBtn, state: false)
+            Animated.animated.labelAnimation(self.titleLabel, enabled: false)
         }
     }
     
@@ -84,6 +93,7 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
                 let alertController = UIAlertController(title: "DER KATASTROFA", message: "PEER OTVALIL", preferredStyle: .alert)
                 let actionSave = UIAlertAction(title: "ОК", style: .default) { (_) in
                     self.sendMessageBtn.changeColor(self.sendMessageBtn, state: false)
+                    Animated.animated.labelAnimation(self.titleLabel, enabled: false)
                 }
                 alertController.addAction(actionSave)
                 self.present(alertController, animated: true, completion: nil)
@@ -164,8 +174,6 @@ extension ConversationViewController: UITableViewDataSource {
             }
         return UITableViewCell()
     }
-    
-    
 }
 
 
@@ -198,6 +206,7 @@ extension ConversationViewController: MCSessionDelegate {
             msgId = msg.messageId
             DispatchQueue.main.async {
                 self.sendMessageBtn.changeColor(self.sendMessageBtn, state: true)
+                Animated.animated.labelAnimation(self.titleLabel, enabled: true)
             }
         } catch {
             print(error)
@@ -227,8 +236,10 @@ extension ConversationViewController: MCSessionDelegate {
         DispatchQueue.main.async {
             if state.rawValue == 0 {
                 self.sendMessageBtn.changeColor(self.sendMessageBtn, state: false)
+                Animated.animated.labelAnimation(self.titleLabel, enabled: false)
             } else if state.rawValue == 2 {
                 self.sendMessageBtn.changeColor(self.sendMessageBtn, state: true)
+                Animated.animated.labelAnimation(self.titleLabel, enabled: true)
             }
         }
 
@@ -261,6 +272,7 @@ extension ConversationViewController: MCSessionDelegate {
 //            print("error")
 //        }
         sendMessageBtn.changeColor(sendMessageBtn, state: false)
+        Animated.animated.labelAnimation(self.titleLabel, enabled: false)
     }
 
     func addDataToArrayMsg(text: String, fromUser: String, toUser: String) {
@@ -294,6 +306,7 @@ extension ConversationViewController: MCSessionDelegate {
             } catch let error {
                 print("Ошибка отправки: \(error)")
                 sendMessageBtn.changeColor(sendMessageBtn, state: false)
+                Animated.animated.labelAnimation(self.titleLabel, enabled: false)
             }
             
             let requestConvID: NSFetchRequest<Conversation> = Conversation.fetchRequest()

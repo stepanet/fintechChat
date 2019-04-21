@@ -31,6 +31,23 @@ class Animated {
         }
         
     }
+    
+    
+    func labelAnimation(_ label: UILabel, enabled: Bool) {
+        if enabled {
+            UIView.animate(withDuration: 1, animations: { () -> Void in
+                label.textColor = UIColor.green
+                label.transform = CGAffineTransform(scaleX: 1.10,
+                                                    y: 1.10)
+            })
+        } else {
+            UIView.animate(withDuration: 1, animations: { () -> Void in
+                label.textColor = UIColor.black
+                label.transform = CGAffineTransform(scaleX: 1.0,
+                                                y: 1.0)
+            })
+        }
+    }
 
     
 }
