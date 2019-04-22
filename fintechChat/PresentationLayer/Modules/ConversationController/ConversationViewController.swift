@@ -17,7 +17,8 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
     var session: MCSession!
     var peerID: MCPeerID?
     
-    //var titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+    let imageTinkoffView = Animated.animated.imageTinkoffView
+    
     var titleLabel: UILabel = {
         let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 200, height: 400)
@@ -80,6 +81,23 @@ class ConversationViewController: UIViewController, UITextFieldDelegate,  NSFetc
         super.viewWillAppear(animated)
         Animated.animated.animatedTableView(tableView: tableView)
         moveMesageToFirst()
+    }
+    
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+        
+        guard sender.view != nil else { return }
+        if sender.state == .began {
+            view.addSubview(imageTinkoffView)
+            imageTinkoffView.isHidden = false
+            let locationImage =  CGRect(x: sender.location(in: view).x-25, y: sender.location(in: view).y-25, width: 50, height: 50)
+            imageTinkoffView.frame = locationImage
+            Animated.animated.animateImg(image: imageTinkoffView, view: self.view)
+        }
+        
+        if sender.state == .ended
+        {
+            imageTinkoffView.isHidden = true
+        }
     }
 
     @IBAction func sendMsgActionBtn(_ sender: UIButton) {

@@ -13,9 +13,8 @@ import CoreData
 class ConversationsListViewController: UIViewController,  NSFetchedResultsControllerDelegate {
 
     @IBOutlet var tableView: UITableView!
+    let imageTinkoffView = Animated.animated.imageTinkoffView
 
-    /*1*/
-    //let coreDate = CoreDataStack.shared
     let messageServiceType = "tinkoff-chat"
     let discoveryInfo = ["userName": UIDevice.current.name + " DmitryPyatin"]
     var myPeerId: MCPeerID!
@@ -75,6 +74,24 @@ class ConversationsListViewController: UIViewController,  NSFetchedResultsContro
             try self.fetchedResultsController.performFetch()
         } catch {
             print(error)
+        }
+    }
+    
+    
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+        
+        guard sender.view != nil else { return }
+        if sender.state == .began {
+            view.addSubview(imageTinkoffView)
+            imageTinkoffView.isHidden = false
+            let locationImage =  CGRect(x: sender.location(in: view).x-25, y: sender.location(in: view).y-25, width: 50, height: 50)
+            imageTinkoffView.frame = locationImage
+            Animated.animated.animateImg(image: imageTinkoffView, view: self.view)
+        }
+        
+        if sender.state == .ended
+        {
+            imageTinkoffView.isHidden = true
         }
     }
     

@@ -78,6 +78,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="g3G-sR-I7e" firstAttribute="trailing" secondItem="54m-6w-tiv" secondAttribute="trailing" id="Fdv-0L-YKL"/>
                             <constraint firstItem="g3G-sR-I7e" firstAttribute="top" secondItem="54m-6w-tiv" secondAttribute="top" id="XKa-uH-N22"/>
@@ -85,6 +86,9 @@
                             <constraint firstItem="g3G-sR-I7e" firstAttribute="bottom" secondItem="54m-6w-tiv" secondAttribute="bottom" id="ufU-OW-XII"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="54m-6w-tiv"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="pto-vb-oqx" appends="YES" id="Oh0-EV-vaf"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="Ddj-FU-Sig">
                         <barButtonItem key="leftBarButtonItem" title="Настройки" id="XuY-r8-fg1">
@@ -104,6 +108,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1wl-zx-eNI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="pto-vb-oqx">
+                    <connections>
+                        <action selector="longPress:" destination="hFl-hU-M7d" id="zWY-nX-nUY"/>
+                        <outlet property="delegate" destination="hFl-hU-M7d" id="T7U-dK-tG8"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="950.625" y="801.76056338028172"/>
         </scene>
@@ -245,6 +255,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Qhg-xb-COd" firstAttribute="trailing" secondItem="8mQ-cf-BFV" secondAttribute="trailing" id="8p0-5h-N0w"/>
                             <constraint firstItem="Ozc-oM-7TD" firstAttribute="top" secondItem="Qhg-xb-COd" secondAttribute="bottom" constant="-1" id="BPU-V5-z9b"/>
@@ -255,6 +266,9 @@
                             <constraint firstAttribute="bottom" secondItem="Ozc-oM-7TD" secondAttribute="bottom" id="htR-Hb-naY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8mQ-cf-BFV"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Qud-Vu-1Ym" appends="YES" id="NYS-jW-CTR"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Имя чатланина" id="izo-3D-IXB">
                         <barButtonItem key="backBarButtonItem" title="Мои чаты" id="OW4-CZ-RYE"/>
@@ -267,6 +281,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPU-I9-Oux" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Qud-Vu-1Ym">
+                    <connections>
+                        <action selector="longPress:" destination="GHQ-eW-2Tz" id="8pl-gF-o6q"/>
+                        <outlet property="delegate" destination="GHQ-eW-2Tz" id="YaP-dK-WPc"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1860" y="803.87323943661977"/>
         </scene>
@@ -357,6 +377,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="5ks-cS-8Sj" firstAttribute="bottom" secondItem="pnW-3w-3u6" secondAttribute="bottom" constant="8" id="0L4-Ie-z0G"/>
                             <constraint firstItem="80f-JN-ZmA" firstAttribute="top" secondItem="JfC-zb-jem" secondAttribute="bottom" constant="8" symbolic="YES" id="39H-zL-XCl"/>
@@ -383,6 +404,9 @@
                             <constraint firstItem="tdk-fc-srJ" firstAttribute="trailing" secondItem="hNr-pM-eNC" secondAttribute="trailing" id="zCw-F8-KEF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5ks-cS-8Sj"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="CCU-fJ-gil" appends="YES" id="PKY-dP-Rme"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="2M0-sT-PeF">
                         <barButtonItem key="leftBarButtonItem" title="Закрыть" style="done" id="Jbu-ro-1oC">
@@ -403,6 +427,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="142-bS-h6J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="CCU-fJ-gil">
+                    <connections>
+                        <action selector="longPress:" destination="cgX-rv-1w6" id="sfr-NQ-yqt"/>
+                        <outlet property="delegate" destination="cgX-rv-1w6" id="Fun-lc-V9I"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2857.5" y="1590.8450704225352"/>
         </scene>
@@ -441,7 +471,11 @@
                         <activityIndicatorView key="backgroundView" hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="nkx-aH-NgV">
                             <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <gestureRecognizers/>
                             <color key="color" red="0.262116248" green="1" blue="0.70255591969999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="ZGO-4P-5sT" appends="YES" id="zk8-s5-xeT"/>
+                            </connections>
                         </activityIndicatorView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="Qdi-4j-4Jy" customClass="CollectionViewCell" customModule="fintechChat" customModuleProvider="target">
@@ -479,6 +513,12 @@
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bQv-6f-dfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ZGO-4P-5sT">
+                    <connections>
+                        <action selector="longPress:" destination="w0R-bo-toL" id="eGf-gY-5NK"/>
+                        <outlet property="delegate" destination="w0R-bo-toL" id="Yxo-3K-ntT"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4110" y="1238"/>
         </scene>

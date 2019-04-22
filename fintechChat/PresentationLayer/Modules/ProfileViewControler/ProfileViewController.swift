@@ -24,6 +24,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var saveDataOnMemory = SaveData()
     var imageFromLoad: UIImageView?
     var linkToImageFromLoad: URL?
+    
+    let imageTinkoffView = Animated.animated.imageTinkoffView
     //let operationQueue = ReadWriteData.OperationDataManager()
     let gcdQueue = ReadWriteData.GCDDataManager()
     
@@ -68,17 +70,34 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func textViewDidChange(_ textView: UITextView) {
         saveDataOnMemory.saveAbout = true
     }
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        //максимум 60 символов
-        if (profileNameTxt.text?.count)! < 61 {
-            self.saveDataOnMemory.saveProfileName = true
-            return true
-        } else {
-            profileNameTxt.text?.removeLast()
-            return true
+    
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+        
+        guard sender.view != nil else { return }
+        if sender.state == .began {
+            view.addSubview(imageTinkoffView)
+            imageTinkoffView.isHidden = false
+            let locationImage =  CGRect(x: sender.location(in: view).x-25, y: sender.location(in: view).y-25, width: 50, height: 50)
+            imageTinkoffView.frame = locationImage
+            Animated.animated.animateImg(image: imageTinkoffView, view: self.view)
+        }
+        
+        if sender.state == .ended
+        {
+            imageTinkoffView.isHidden = true
         }
     }
+
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        //максимум 60 символов
+//        if (profileNameTxt.text?.count)! < 61 {
+//            self.saveDataOnMemory.saveProfileName = true
+//            return true
+//        } else {
+//            profileNameTxt.text?.removeLast()
+//            return true
+//        }
+//    }
 
     @IBAction func tekePIctureBtnAction(_ sender: UIButton) {
         print("Выбери изображение профиля")

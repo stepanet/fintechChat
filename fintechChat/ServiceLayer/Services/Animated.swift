@@ -12,6 +12,15 @@ class Animated {
     
     static let animated = Animated()
     
+    let imageTinkoffView: UIImageView = {
+        let image = UIImageView(image: #imageLiteral(resourceName: "tinkoff"))
+        image.frame = CGRect(x: 0 , y: 0, width: 50, height: 50)
+        image.layer.cornerRadius = 25
+        image.clipsToBounds = true
+        //image.contentMode = .scaleToFit
+        return image
+    }()
+    
     func animatedTableView(tableView: UITableView) {
         //let tableView = UITableView()
         
@@ -30,6 +39,12 @@ class Animated {
             delayCounter += 1
         }
         
+    }
+    
+    func animateImg(image: UIImageView, view: UIView) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .repeat, animations: {
+            image.frame = CGRect(x: Int.random(in: 0..<Int(view.bounds.width)), y: Int.random(in: 0..<Int(view.bounds.height)), width: 50, height: 50)
+        }, completion: nil)
     }
     
     
